@@ -2,11 +2,14 @@
 __pycache__/
 *.py[cod]
 *$py.class
+pip-selfcheck.json
 
 # C extensions
 *.so
 
 # Distribution / packaging
+bin/
+include/
 .Python
 build/
 develop-eggs/
