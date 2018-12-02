@@ -5,9 +5,9 @@ pip install -r requirements.txt
 ```
 
 I've added my own dataset in the `data` folder. Feel free to use your
-won inputs.
+own inputs.
 
-You can run each day by simply running:
+You can run each day's challenge by simply using:
 
 ``` shell
 python day1.py
