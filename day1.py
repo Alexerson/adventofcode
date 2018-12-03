@@ -10,6 +10,8 @@ def part2(data):
     known = [0]
     current = 0
 
+    # This solution is really not efficient, but it works...
+    # In a real-world problem, we should try to find a non-bruteforce solution
     # Depending on the input, this can take a while (and even never finish)
     # With my input and machine, it takes about 3 minutes to end.
     while True:
