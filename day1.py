@@ -7,7 +7,7 @@ def part1(data):
 
 def part2(data):
 
-    known = [0]
+    known = set([0])
     current = 0
 
     # This solution is really not efficient, but it works...
@@ -20,7 +20,7 @@ def part2(data):
             if current in known:
                 return current
             else:
-                known.append(current)
+                known.add(current)
 
 
 if __name__ == '__main__':
