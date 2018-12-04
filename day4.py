@@ -72,4 +72,4 @@ if __name__ == '__main__':
     data = data_import('data/day4')
     shifts = convert_data(data)
     print('Solution of 1 is', part1(shifts))
-    print('Solution of 2 is', part2(data))
+    print('Solution of 2 is', part2(shifts))

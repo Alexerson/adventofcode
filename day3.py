@@ -50,4 +50,4 @@ if __name__ == '__main__':
     processed_data = convert_data(data)
     print('Input is', processed_data)
     print('Solution of 1 is', part1(processed_data))
-    print('Solution of 2 is', part2(data))
+    print('Solution of 2 is', part2(processed_data))
