@@ -15,7 +15,8 @@ def remove_once(data):
     return data
 
 
-def part1(data):
+# This is my first implementation, it's in O(n^2)
+def part1_naive(data):
 
     len_before = len(data)
     len_after = 0
@@ -24,6 +25,25 @@ def part1(data):
         len_before = len(data)
         data = remove_once(data)
         len_after = len(data)
+
+    return data
+
+
+# This is Fred's algorithm, it's way faster! O(n)
+def part1(data):
+
+    index = 0
+    while index < len(data) - 1:
+        if (
+            data[index].lower() == data[index + 1].lower()
+            and data[index] != data[index + 1]
+        ):
+            data = data[:index] + data[index + 2 :]
+            index -= 2
+            if index < 0:
+                index = -1
+
+        index += 1
 
     return data
 
