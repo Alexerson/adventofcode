@@ -29,6 +29,9 @@ def part1(data):
 
 
 def part2(data):
+    data = part1(data)  # We can use the already reduced version
+    # to avoid unnecessary computations
+
     set_chars = set(list(data.lower()))
     results = []
 
