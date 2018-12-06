@@ -42,7 +42,7 @@ def part1(data):
             repartition[(i, j)] = index_min
 
     # We exclude edges, those are infinite boundaries
-    exclusions = set()
+    exclusions = set(['.'])
     for i in range(min_x, max_x):
         exclusions.add(repartition[(i, min_y)])
         exclusions.add(repartition[(i, max_y)])
@@ -55,11 +55,25 @@ def part1(data):
         item for item in repartition.values() if item not in exclusions
     )
 
-    return counter.most_common(1)
+    return counter.most_common(1)[0][1]
 
 
-def part2(data):
-    pass
+def part2(data, limit=10000):
+    # We don't need to test anything, just start with min and max
+    min_x = min(list(zip(*data))[0])
+    min_y = min(list(zip(*data))[1])
+    max_x = max(list(zip(*data))[0])
+    max_y = max(list(zip(*data))[1])
+
+    distances = {}
+
+    # Bruteforce: we check for each point which is closer
+    for i in range(min_x, max_x + 1):
+        for j in range(min_y, max_y + 1):
+
+            distances[(i, j)] = sum(distance((i, j), point) for point in data)
+
+    return sum(dist < limit for dist in distances.values())
 
 
 if __name__ == '__main__':
