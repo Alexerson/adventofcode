@@ -34,10 +34,7 @@ def part1(data):
 
     index = 0
     while index < len(data) - 1:
-        if (
-            data[index].lower() == data[index + 1].lower()
-            and data[index] != data[index + 1]
-        ):
+        if is_reverse_polarity(data[index], data[index + 1]):
             data = data[:index] + data[index + 2 :]
             index -= 2
             if index < 0:
