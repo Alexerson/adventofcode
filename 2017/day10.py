@@ -57,14 +57,13 @@ def part2(data, count=256, rounds=64):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day10_example', str, False)[0].split(',')
-    data = [int(item) for item in data]
+    data = data_import('2017/data/day10_example', int, ',')[0]
     print('Example:')
     print('Solution of 1 is', part1(data, 5))
     print('Solution of 2 is', part2(data, 5))
 
     print('Real:')
-    data = data_import('2017/data/day10_real', str, False)[0]
+    data = data_import('2017/data/day10_real', int, ',')[0]
     data_ints = [int(item) for item in data.split(',')]
     hash = part1(data_ints, 256)
     print('Solution of 1 is', hash[0] * hash[1])

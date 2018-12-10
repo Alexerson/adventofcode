@@ -48,8 +48,7 @@ def parts(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day11', str)
-    data = data[0].split(',')
+    data = data_import('2017/data/day11', str, ',')[0]
 
     part1, part2 = parts(data)
 
