@@ -9,7 +9,7 @@ def data_import(filename, cast=str, split_line=False):
                     line = line.split()
                     data.append([cast(item.strip()) for item in line])
                 else:
-                    data.append(cast(item.strip()) for item in line)
+                    data.append(cast(line.strip()))
 
             line = file.readline()
     return data
