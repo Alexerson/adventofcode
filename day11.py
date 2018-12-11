@@ -57,10 +57,10 @@ def part1(serial, size=3, grid=None):
     return coordinates, max_level
 
 
-def part2(serial):
+def part2(serial, max_size=300):
     coordinates = (0, 0, 0)
     max_level = 0
-    max_size = 0
+    max_size_i = 0
 
     grid = {
         (i, j): get_power(i, j, serial)
@@ -68,16 +68,15 @@ def part2(serial):
         for j in range(1, 3011)
     }
 
-    for size in range(1, 301):
+    for size in range(1, max_size + 1):
         coord, level = part1(serial, size, grid)
         if level > max_level:
             max_level = level
             coordinates = coord
-            max_size = size
-            print(coordinates, max_size, max_level)
-        print(size, level)
+            max_size_i = size
+            print('So far': coordinates, max_size_i, max_level)
 
-    return coordinates, max_size, max_level
+    return coordinates, max_size_i, max_level
 
 
 if __name__ == '__main__':
