@@ -1,5 +1,6 @@
 from utils import data_import
-from y2017.day10_alt import solve2 as knot_hash
+from y2017.day10 import part2 as knot_hash
+from y2017.day10_alt import solve2 as knot_hash_alt
 
 
 def part1(data):

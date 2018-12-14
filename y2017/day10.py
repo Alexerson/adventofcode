@@ -41,10 +41,6 @@ def xor(data):
     return result
 
 
-def reduce(sparse_hash):
-    return
-
-
 def part2(data, count=256, rounds=64):
     data_ = [ord(b) for b in data] + [17, 31, 73, 47, 23]
     sparse_hash = part1(data_, count, rounds)
