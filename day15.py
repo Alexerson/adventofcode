@@ -124,10 +124,18 @@ def select_target(fighter, goblins, elves):
 def play_one_round(goblins, elves, elements, elf_attack=3):
     fighters = sorted(goblins + elves)
 
+    complete = True
     for fighter in fighters:
         # If someone died during this round, ignore him
         if fighter[2] <= 0:
             continue
+
+        if (
+            sum(1 for goblin in goblins if goblin[2] > 0) == 0
+            or sum(1 for elf in elves if elf[2] > 0) == 0
+        ):
+            complete = False
+            break
 
         move_once(fighter, elements)
         target = select_target(fighter, goblins, elves)
@@ -144,7 +152,7 @@ def play_one_round(goblins, elves, elements, elf_attack=3):
     # After a round, remove dead fighters from the lists
     goblins = [goblin for goblin in goblins if goblin[2] > 0]
     elves = [elf for elf in elves if elf[2] > 0]
-    return goblins, elves, elements
+    return goblins, elves, elements, complete
 
 
 def show_map(goblins, elves, elements):
@@ -160,24 +168,25 @@ def show_map(goblins, elves, elements):
 
 def part1(data, elf_attack=3):
     goblins, elves, elements = convert_to_coords(data)
-    show_map(goblins, elves, elements)
+    # show_map(goblins, elves, elements)
 
     round_ = 0
     while len(goblins) > 0 and len(elves) > 0:
-        goblins, elves, elements = play_one_round(
+        goblins, elves, elements, complete = play_one_round(
             goblins, elves, elements, elf_attack
         )
-        round_ += 1
-        print('-' * 30)
-        print('Round', round_)
-        show_map(goblins, elves, elements)
+        # We only want to count complete rounds!
+        if complete:
+            round_ += 1
+        # print('-' * 30)
+        # print('Round', round_)
+        # show_map(goblins, elves, elements)
 
-    return (round_ - 1) * sum(fighter[2] for fighter in goblins + elves)
+    return round_ * sum(fighter[2] for fighter in goblins + elves)
 
 
 def part2(data):
     goblins, elves, elements = convert_to_coords(data)
-    show_map(goblins, elves, elements)
 
     elf_count = len(elves)
 
@@ -186,25 +195,22 @@ def part2(data):
         goblins, elves, elements = convert_to_coords(data)
         round_ = 0
         while len(goblins) > 0 and len(elves) == elf_count:
-            goblins, elves, elements = play_one_round(
+            goblins, elves, elements, complete = play_one_round(
                 goblins, elves, elements, elf_attack=elf_attack
             )
-            round_ += 1
+            if complete:
+                round_ += 1
         if elf_count == len(elves):
-            return (
-                elf_attack,
-                round_ - 1,
-                (round_ - 1) * sum(fighter[2] for fighter in goblins + elves),
-            )
+            return round_ * sum(fighter[2] for fighter in goblins + elves)
 
-        print(
-            'Trying',
-            elf_attack,
-            len(elves),
-            elf_count,
-            round_,
-            round_ * elf_attack,
-        )
+        # print(
+        #     'Trying',
+        #     elf_attack,
+        #     len(elves),
+        #     elf_count,
+        #     round_,
+        #     round_ * elf_attack,
+        # )
         elf_attack += 1
 
 
@@ -230,12 +236,3 @@ if __name__ == '__main__':
     data_real = data_import('data/day15', str)
     print('Solution of 1 is', part1(data_real))
     print('Solution of 2 is', part2(data_real))
-
-# 215496
-# 193140
-# 193464
-# 190777
-
-
-# 20
-# 19
