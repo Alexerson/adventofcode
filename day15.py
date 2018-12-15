@@ -1,7 +1,7 @@
-import collections
 from collections import deque
+from time import sleep
 
-import parse
+from colorama import Fore, Style
 
 from utils import data_import
 
@@ -159,16 +159,24 @@ def show_map(goblins, elves, elements):
     max_line = max(coord[0] for coord in elements.keys())
     max_column = max(coord[1] for coord in elements.keys())
 
+    print_match = {"#": "🧱", "G": "👺", 'E': '🧝', '.': '  '}
+
     for i in range(max_line + 1):
-        print(''.join(elements.get((i, j), '.') for j in range(max_column + 1)))
+        print(
+            ''.join(
+                print_match[elements.get((i, j), '.')]
+                for j in range(max_column + 1)
+            )
+        )
 
-    print('Goblins', len(goblins), goblins)
-    print('Elves', len(elves), elves)
+    print(len(goblins), 'goblins remaining:', [item[2] for item in goblins])
+    print(len(elves), 'elves remaining:', [item[2] for item in elves])
 
 
-def part1(data, elf_attack=3):
+def part1(data, elf_attack=3, debug=False):
     goblins, elves, elements = convert_to_coords(data)
-    # show_map(goblins, elves, elements)
+    if debug:
+        show_map(goblins, elves, elements)
 
     round_ = 0
     while len(goblins) > 0 and len(elves) > 0:
@@ -178,9 +186,11 @@ def part1(data, elf_attack=3):
         # We only want to count complete rounds!
         if complete:
             round_ += 1
-        # print('-' * 30)
-        # print('Round', round_)
-        # show_map(goblins, elves, elements)
+        if debug:
+            print('-' * 30)
+            print('Round', round_)
+            show_map(goblins, elves, elements)
+            sleep(0.2)
 
     return round_ * sum(fighter[2] for fighter in goblins + elves)
 
