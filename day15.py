@@ -5,6 +5,8 @@ from colorama import Fore, Style
 
 from utils import data_import
 
+DEBUG = False
+
 
 def convert_to_coords(data):
 
@@ -246,3 +248,9 @@ if __name__ == '__main__':
     data_real = data_import('data/day15', str)
     print('Solution of 1 is', part1(data_real))
     print('Solution of 2 is', part2(data_real))
+
+    if DEBUG:
+        sleep(3)
+        part1(data_real, debug=True)
+        sleep(3)
+        part1(data_real, elf_attack=20, debug=True)

@@ -16,7 +16,7 @@ functions = {
     "gtrr": lambda a, b, registers: int(registers[a] > registers[b]),
     "eqir": lambda a, b, registers: int(a == registers[b]),
     "eqri": lambda a, b, registers: int(registers[a] == b),
-    "eqrr": lambda a, b, registers: int(registers[a] == registers[b])
+    "eqrr": lambda a, b, registers: int(registers[a] == registers[b]),
 }
 
 
@@ -28,8 +28,8 @@ def split_data(data):
     while line_no < len(data):
         if data[line_no].startswith('Before'):
             before = [int(b) for b in data[line_no][9:-1].split(',')]
-            command = [int(b) for b in data[line_no+1].split(' ')]
-            after = [int(b) for b in data[line_no+2][9:-1].split(',')]
+            command = [int(b) for b in data[line_no + 1].split(' ')]
+            after = [int(b) for b in data[line_no + 2][9:-1].split(',')]
 
             instructions.append((before, command, after))
             line_no += 3
