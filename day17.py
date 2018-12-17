@@ -124,12 +124,14 @@ def flow_one(candidate, clay, water, max_y):
     return candidates
 
 
-def part1(data, debug=False):
+def run_simulation(data):
     clay = convert_data(data)
-    candidates = [(500, 0)]
     water = {}
 
+    min_y = min(y for x, y in clay.keys())
     max_y = max(y for x, y in clay.keys())
+
+    candidates = [(500, min_y - 1)]
 
     while candidates:
         candidate = candidates.pop()
@@ -138,20 +140,24 @@ def part1(data, debug=False):
 
         candidates += new_candidates
 
-    if debug:
-        return clay, water
-    return len(water)  # We don't count source
+    return clay, water
 
 
-def part2(data):
-    pass
+def part1(clay, water):
+    return len(water)
+
+
+def part2(clay, water):
+    return sum(w == STILL for w in water.values())
 
 
 if __name__ == '__main__':
     data_example = data_import('data/day17_example', str, ',')
-    print('Solution of 1 is', part1(data_example))
-    print('Solution of 2 is', part2(data_example))
+    clay, water = run_simulation(data_example)
+    print('Solution of 1 is', part1(clay, water))
+    print('Solution of 2 is', part2(clay, water))
 
     data_real = data_import('data/day17', str, ',')
-    print('Solution of 1 is', part1(data_real))
-    print('Solution of 2 is', part2(data_real))
+    clay, water = run_simulation(data_real)
+    print('Solution of 1 is', part1(clay, water))
+    print('Solution of 2 is', part2(clay, water))
