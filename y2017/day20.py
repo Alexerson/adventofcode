@@ -44,7 +44,7 @@ def part1(data, loops=100000000):
     )[0]
 
 
-def part2(data, loops=100000):
+def part2(data, loops=1000):
     particules = convert(data)
 
     i = 0
@@ -61,14 +61,18 @@ def part2(data, loops=100000):
         collisions = set(
             position for position, count in counter.items() if count > 1
         )
+        to_remove = sum(
+            count for position, count in counter.items() if count > 1
+        )
 
         if collisions:
-            for index, particule in enumerate(particules):
-                if tuple(particule[0]) in collisions:
-                    particules.pop(index)
+            particules = [
+                particule
+                for particule in particules
+                if tuple(particule[0]) not in collisions
+            ]
 
-        if i % 10000 == 0:
-            print(len(particules))
+    return len(particules)
 
 
 if __name__ == '__main__':
