@@ -5,3 +5,7 @@ editdistance
 
 #Day 10
 parse
+
+
+# Viz
+Pillow
