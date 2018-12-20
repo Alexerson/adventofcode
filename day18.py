@@ -75,8 +75,8 @@ def part1(data, nb_cycles=10, debug=False):
 if __name__ == '__main__':
     data_example = data_import('data/day18_example', str)
     print('Solution of 1 is', part1(data_example))
-    print('Solution of 1 is', part1(data_example, 1000000000))
+    print('Solution of 2 is', part1(data_example, 1000000000))
 
     data_real = data_import('data/day18_real', str)
     print('Solution of 1 is', part1(data_real))
-    print('Solution of 1 is', part1(data_real, 1000000000))
+    print('Solution of 2 is', part1(data_real, 1000000000))
