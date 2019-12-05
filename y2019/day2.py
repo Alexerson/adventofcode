@@ -7,7 +7,7 @@ def part1(data):
     data = list(data)
     data[1] = 12
     data[2] = 2
-    return execute(data)[0]
+    return execute(data)[0][0]
 
 def part2(data, output):
     for noun in range(100):
@@ -15,7 +15,7 @@ def part2(data, output):
             memory = list(data)
             memory[1] = noun
             memory[2] = verb 
-            if execute(memory)[0] == output:
+            if execute(memory)[0][0] == output:
                 return noun * 100 + verb
 
 
