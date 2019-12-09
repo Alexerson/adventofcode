@@ -1,5 +1,4 @@
 from utils import data_import
-from intcode import execute
 import collections
 from functools import lru_cache
 

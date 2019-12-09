@@ -1,15 +1,13 @@
 from utils import data_import
-from intcode import execute
+from intcode import Program
 
 
 
 def part1(data):
-    data = list(data)
-    return execute(data, [1])[1][-1]
+    return list(Program(data).execute([1]))[-1]
 
 def part2(data):
-    data = list(data)
-    return execute(data, [5])[1][0]
+    return list(Program(data).execute([5]))[0]
 
 if __name__ == '__main__':
     data = data_import('y2019/data/day5', cast=int, split_char=',')[0]

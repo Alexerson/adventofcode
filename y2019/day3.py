@@ -1,5 +1,4 @@
 from utils import data_import
-from intcode import execute
 
 
 def build_path(data):
