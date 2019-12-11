@@ -11,7 +11,7 @@ def part1(data):
         input_ = 0
         for setting in settings:
             inputs = [setting, input_]
-            input_ = list(Program(data).execute(inputs))[0]
+            input_ = Program(data).run_until_output(inputs)
         outputs[settings] = input_
     return max(outputs.items(), key=lambda a: a[1])
 
@@ -32,36 +32,31 @@ def part2(data):
         while not all(program.finished for program in [program_a, program_b, program_c, program_d, program_e]):
 
             try:
-                for out in program_a.execute(inputs_a):
-                    inputs_b.append(out)
+                inputs_b.append(program_a.run_until_output(inputs_a))
             except IndexError:
                 pass
 
             try:
-                for out in program_b.execute(inputs_b):
-                    inputs_c.append(out)
+                inputs_c.append(program_b.run_until_output(inputs_b))
             except IndexError:
                 pass
 
             try:
-                for out in program_c.execute(inputs_c):
-                    inputs_d.append(out)
+                inputs_d.append(program_c.run_until_output(inputs_c))
             except IndexError:
                 pass
 
             try:
-                for out in program_d.execute(inputs_d):
-                    inputs_e.append(out)
+                inputs_e.append(program_d.run_until_output(inputs_d))
             except IndexError:
                 pass
 
             try:
-                for out in program_e.execute(inputs_e):
-                    inputs_a.append(out)
+                inputs_a.append(program_e.run_until_output(inputs_e))
             except IndexError:
                 pass
 
-        outputs[settings] = out
+        outputs[settings] = inputs_a[-2]
 
     return max(outputs.items(), key=lambda a: a[1])
 

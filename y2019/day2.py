@@ -8,7 +8,7 @@ def part1(data):
     data[1] = 12
     data[2] = 2
     program = Program(data)
-    list(program.execute())
+    program.run_until_output()
     return program.memory[0]
 
 
@@ -19,7 +19,7 @@ def part2(data, output):
             memory[1] = noun
             memory[2] = verb 
             program = Program(memory)
-            list(program.execute())
+            program.run_until_output()
             if program.memory[0] == output:
                 return noun * 100 + verb
 

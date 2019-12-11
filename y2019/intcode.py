@@ -1,31 +1,22 @@
 
-
 class Program(object):
 
     def __init__(self, memory):
         self.memory = list(memory)
-        for i in range(10000):
-            self.memory.append(0)
+        self.memory += [0] * 10000
         self.pointer = 0
         self.finished = False
-
-    def execute(self, inputs=None):
-        while True:
-            yield self.run_until_output(inputs)
+        self.relative_base = 0
 
     def run_until_output(self, inputs=None):
-
         memory = self.memory
         if inputs is None:
             inputs = []
 
-        self.relative_base = 0
-
-        outputs = []
-
-        while (opcode:=memory[self.pointer]) != 99:
-
+        while True:
             output = None
+
+            opcode = memory[self.pointer]
 
             instruction = opcode % 100
             parameter_modes = opcode // 100
@@ -36,6 +27,8 @@ class Program(object):
                 params_count = 2
             elif instruction in (1, 2, 7, 8):
                 params_count = 3
+            elif instruction in (99,):
+                params_count = 0
                 
             params = [
                 (
@@ -100,6 +93,10 @@ class Program(object):
             elif instruction == 9:
                 self.relative_base += values[0]
 
+            elif instruction == 99:
+                self.finished = True
+                return 
+
             else:
                 raise ValueError("This should not happen")
 
@@ -107,6 +104,3 @@ class Program(object):
 
             if output is not None:
                 return output
-
-
-        self.finished = True

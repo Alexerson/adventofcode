@@ -2,10 +2,10 @@ from utils import data_import
 from intcode import Program
 
 def part1(data):
-    return list(Program(data).execute([1]))
+    return Program(data).run_until_output([1])
 
 def part2(data):
-    return list(Program(data).execute([2]))
+    return Program(data).run_until_output([2])
 
 
 if __name__ == '__main__':
