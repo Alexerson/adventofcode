@@ -1,5 +1,4 @@
 from utils import data_import
-from intcode import Program
 import math
 
 def extract_asteroids(data):

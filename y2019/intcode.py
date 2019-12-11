@@ -10,6 +10,10 @@ class Program(object):
         self.finished = False
 
     def execute(self, inputs=None):
+        while True:
+            yield self.run_until_output(inputs)
+
+    def run_until_output(self, inputs=None):
 
         memory = self.memory
         if inputs is None:
@@ -20,6 +24,8 @@ class Program(object):
         outputs = []
 
         while (opcode:=memory[self.pointer]) != 99:
+
+            output = None
 
             instruction = opcode % 100
             parameter_modes = opcode // 100
@@ -69,7 +75,7 @@ class Program(object):
                 memory[index_] = inputs.pop(0)
 
             elif instruction == 4:
-                yield values[0]
+                output = values[0]
 
             elif instruction == 5:
                 if values[0] != 0:
@@ -98,5 +104,9 @@ class Program(object):
                 raise ValueError("This should not happen")
 
             self.pointer += 1 + params_count
+
+            if output is not None:
+                return output
+
 
         self.finished = True
