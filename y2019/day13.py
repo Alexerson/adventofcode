@@ -3,13 +3,14 @@ from intcode import Program
 import math
 import itertools
 import collections
+from time import sleep
 
 MAPPING = {
     0: ' ',
-    1: '#',
-    2: '*',
-    3: '_',
-    4: 'o'
+    1: '⬜',
+    2: 'O',
+    3: '▄',
+    4: '⚽'
 }
 
 def part1(data):
@@ -36,9 +37,12 @@ def part2(data, debug=False):
     position_ball = None
     position_pad = None
 
-    play = False
+    play = show = False
+
+    step = 0
 
     while not program.finished:
+        step += 1
         joystick = 0
 
         if play and position_ball and position_pad:
@@ -49,8 +53,6 @@ def part2(data, debug=False):
 
             inputs.append(joystick)
             play = False
-            if debug:
-                print(f'{inputs=} {position_ball=} {position_pad=} {current_score=}')
 
         x = program.run_until_output(inputs)
         y = program.run_until_output(inputs)
@@ -64,21 +66,23 @@ def part2(data, debug=False):
 
                 if tile_id == 3:
                     position_pad = [x, y]
+                    show = True
 
                 if tile_id == 4:
                     position_ball = [x, y]
                     play = True
 
-    if debug:
-        xs = [x for x, y in tiles.keys()]  
-        ys = [y for x, y in tiles.keys()]  
+        if debug and show and position_ball and position_pad:
+            xs = [x for x, y in tiles.keys()]  
+            ys = [y for x, y in tiles.keys()]  
 
-        for y in range(min(ys), max(ys)+1):
-            row = []
-            for x in range(min(xs), max(xs)+1):
-                row.append(MAPPING.get(tiles.get((x, y))))
-            print(''.join(row))
-            
+            rows = [f'{position_ball=} {position_pad=} {current_score=}'] + [''.join(MAPPING.get(tiles.get((x, y)), ' ') for x in range(min(xs), max(xs)+1)) for y in range(min(ys), max(ys)+1)]
+            print("\n".join(rows))
+            print("\n")
+            sleep(.01)
+            show = False
+
+
     return current_score
 
 
@@ -86,4 +90,4 @@ if __name__ == '__main__':
 
     data = data_import('y2019/data/day13', cast=int, split_char=',')[0]
     print('Solution of 1 is', part1(data))
-    print('Solution of 2 is', part2(data))
+    print('Solution of 2 is', part2(data, debug=False))
