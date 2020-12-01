@@ -10,5 +10,5 @@ own inputs.
 You can run each day's challenge by simply using:
 
 ```shell
-python day1.py
+python y2020/day1.py
 ```
