@@ -1,6 +1,6 @@
 Before using, make sure to install the required libraries.
 
-``` shell
+```shell
 pip install -r requirements.txt
 ```
 
@@ -9,6 +9,6 @@ own inputs.
 
 You can run each day's challenge by simply using:
 
-``` shell
+```shell
 python day1.py
 ```
