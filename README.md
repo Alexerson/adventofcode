@@ -1,3 +1,5 @@
+This repo includes the solution I propose for Eric Wastl's Advent of Code: https://adventofcode.com/
+
 Before using, make sure to install the required libraries.
 
 ```shell
