@@ -72,9 +72,7 @@ def part2(depth, target):
 
     cave = {
         key: value['erosion']
-        for key, value in build_cave(
-                depth, target, max_size)
-        ).items()
+        for key, value in build_cave(depth, target, max_size).items()
     }
 
     target = (target[0], target[1], TORCH)

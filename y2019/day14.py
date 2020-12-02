@@ -1,12 +1,14 @@
-from utils import data_import
-from intcode import Program
-import math
-import itertools
 import collections
+import itertools
+import math
 from time import sleep
 
+from intcode import Program
 
-class Reaction():
+from utils import data_import
+
+
+class Reaction:
     def __init__(self, before, after):
         self.before = before
         self.after_quantity = after[0]
@@ -14,6 +16,7 @@ class Reaction():
 
     def __str__(self):
         return f'Reaction {self.before} -> {self.after_quantity}, {self.after_kind}'
+
 
 def build_reactions(data):
     reactions = {}
@@ -23,16 +26,15 @@ def build_reactions(data):
         before, after = reaction.split('=>')
 
         for before_values in before.split(','):
-            quantity, kind = before_values.strip().split(' ') 
+            quantity, kind = before_values.strip().split(' ')
             before_list.append((int(quantity), kind.strip()))
 
         after_quantity, after_kind = after.strip().split(' ')
 
         reactions[after_kind.strip()] = Reaction(
-                before_list,
-                (int(after_quantity), after_kind.strip())
-            )
-        
+            before_list, (int(after_quantity), after_kind.strip())
+        )
+
     return reactions
 
 
@@ -72,12 +74,17 @@ def part1(data, fuel_quantity=1):
 
         reaction = reactions.get(converted_kind)
 
-        times = math.ceil(possessions[converted_kind] / reaction.after_quantity)
+        times = math.ceil(
+            possessions[converted_kind] / reaction.after_quantity
+        )
 
         for quantity, kind in reaction.before:
             possessions[kind] = possessions.get(kind, 0) + times * quantity
-        possessions[converted_kind] = times * reaction.after_quantity - possessions[converted_kind] 
+        possessions[converted_kind] = (
+            times * reaction.after_quantity - possessions[converted_kind]
+        )
     return possessions['ORE']
+
 
 def part2(data):
     wanted_ore_quantity = 1_000_000_000_000
@@ -96,6 +103,7 @@ def part2(data):
 
     return min_fuel_quantity
 
+
 if __name__ == '__main__':
     data = data_import('y2019/data/day14_example0')
     print('Solution of example 1 is', part1(data))
@@ -104,4 +112,3 @@ if __name__ == '__main__':
     data = data_import('y2019/data/day14')
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))
-

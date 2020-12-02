@@ -1,6 +1,6 @@
-from utils import data_import
 from intcode import Program
 
+from utils import data_import
 
 
 def part1(data):
@@ -17,7 +17,7 @@ def part2(data, output):
         for verb in range(100):
             memory = list(data)
             memory[1] = noun
-            memory[2] = verb 
+            memory[2] = verb
             program = Program(memory)
             program.run_until_output()
             if program.memory[0] == output:

@@ -1,8 +1,11 @@
-from utils import data_import
 from intcode import Program
+
+from utils import data_import
+
 
 def part1(data):
     return Program(data).run_until_output([1])
+
 
 def part2(data):
     return Program(data).run_until_output([2])

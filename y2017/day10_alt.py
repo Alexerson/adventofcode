@@ -1,6 +1,5 @@
 from functools import reduce
-from itertools import accumulate
-from itertools import zip_longest as zipl
+from itertools import accumulate, zip_longest as zipl
 from operator import mul, xor
 
 

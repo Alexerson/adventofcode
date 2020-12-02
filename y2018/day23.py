@@ -33,7 +33,9 @@ def part1(data):
 
 
 def get_in_range_count(bots, position, radius=None):
-    return sum(distance(bot[0], position) <= (radius or bot[1]) for bot in bots)
+    return sum(
+        distance(bot[0], position) <= (radius or bot[1]) for bot in bots
+    )
 
 
 def part2(data, position=None):

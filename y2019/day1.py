@@ -2,7 +2,8 @@ from utils import data_import
 
 
 def compute_fuel(module):
-    return max(int(module/3) - 2, 0)
+    return max(int(module / 3) - 2, 0)
+
 
 def compute_fuel_with_extra(module):
     fuel = compute_fuel(module)
@@ -20,7 +21,6 @@ def part1(data):
 
 def part2(data):
     return sum(compute_fuel_with_extra(item) for item in data)
-
 
 
 if __name__ == '__main__':

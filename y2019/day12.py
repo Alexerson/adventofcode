@@ -1,13 +1,16 @@
-from utils import data_import
-from intcode import Program
-import math
-import itertools
-from functools import lru_cache
 import collections
+import itertools
+import math
+from functools import lru_cache
+
+from intcode import Program
+
+from utils import data_import
+
 
 @lru_cache
 def get_prime_factors(number):
-    for i in range(2,number):
+    for i in range(2, number):
         if number % i == 0:
             return [i] + get_prime_factors(number // i)
 
@@ -19,7 +22,7 @@ def lcm(*numbers):
 
     for number in numbers:
         prime_factors = get_prime_factors(number)
-        
+
         for value, count in collections.Counter(prime_factors).items():
             if factors.get(value, 0) < count:
                 factors[value] = count
@@ -30,6 +33,7 @@ def lcm(*numbers):
         number *= value ** count
 
     return number
+
 
 class Moon(object):
     def __init__(self, label, x, y, z):
@@ -43,7 +47,6 @@ class Moon(object):
         self.vx = 0
         self.vy = 0
         self.vz = 0
-
 
     def get_potential_energy(self):
         return abs(self.x) + abs(self.y) + abs(self.z)
@@ -66,22 +69,22 @@ def part1(moons, steps=1000):
     for step in range(steps):
         for moon1, moon2 in itertools.combinations(moons, 2):
             if moon1.x > moon2.x:
-                moon1.vx -= 1 
-                moon2.vx += 1 
+                moon1.vx -= 1
+                moon2.vx += 1
             elif moon1.x < moon2.x:
                 moon1.vx += 1
                 moon2.vx -= 1
 
             if moon1.y > moon2.y:
-                moon1.vy -= 1 
-                moon2.vy += 1 
+                moon1.vy -= 1
+                moon2.vy += 1
             elif moon1.y < moon2.y:
                 moon1.vy += 1
                 moon2.vy -= 1
 
             if moon1.z > moon2.z:
-                moon1.vz -= 1 
-                moon2.vz += 1 
+                moon1.vz -= 1
+                moon2.vz += 1
             elif moon1.z < moon2.z:
                 moon1.vz += 1
                 moon2.vz -= 1
@@ -90,7 +93,6 @@ def part1(moons, steps=1000):
             moon.x += moon.vx
             moon.y += moon.vy
             moon.z += moon.vz
-
 
     return sum(moon.get_energy() for moon in moons)
 
@@ -113,22 +115,22 @@ def part2(moons):
         step += 1
         for moon1, moon2 in itertools.combinations(moons, 2):
             if moon1.x > moon2.x:
-                moon1.vx -= 1 
-                moon2.vx += 1 
+                moon1.vx -= 1
+                moon2.vx += 1
             elif moon1.x < moon2.x:
                 moon1.vx += 1
                 moon2.vx -= 1
 
             if moon1.y > moon2.y:
-                moon1.vy -= 1 
-                moon2.vy += 1 
+                moon1.vy -= 1
+                moon2.vy += 1
             elif moon1.y < moon2.y:
                 moon1.vy += 1
                 moon2.vy -= 1
 
             if moon1.z > moon2.z:
-                moon1.vz -= 1 
-                moon2.vz += 1 
+                moon1.vz -= 1
+                moon2.vz += 1
             elif moon1.z < moon2.z:
                 moon1.vz += 1
                 moon2.vz -= 1
@@ -159,13 +161,14 @@ def part2(moons):
 
     return lcm(period_x, period_y, period_z)
 
+
 if __name__ == '__main__':
 
     moons = [
         Moon(1, -1, 0, 2),
         Moon(2, 2, -10, -7),
         Moon(3, 4, -8, 8),
-        Moon(4, 3, 5, -1)
+        Moon(4, 3, 5, -1),
     ]
     print('Solution of 2 is', part2(moons))
 
@@ -173,16 +176,16 @@ if __name__ == '__main__':
         Moon(1, -8, -10, 0),
         Moon(2, 5, 5, 10),
         Moon(3, 2, -7, 3),
-        Moon(4, 9, -8, -3)
+        Moon(4, 9, -8, -3),
     ]
     print('Solution of 1 is', part1(moons, 100))
     print('Solution of 2 is', part2(moons))
 
     moons = [
-        Moon(1, 17, -12, 13), 
-        Moon(2, 2, 1, 1), 
-        Moon(3, -1, -17, 7), 
-        Moon(4, 12, -14, 18)
+        Moon(1, 17, -12, 13),
+        Moon(2, 2, 1, 1),
+        Moon(3, -1, -17, 7),
+        Moon(4, 12, -14, 18),
     ]
 
     print('Solution of 1 is', part1(moons, 1000))

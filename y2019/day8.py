@@ -1,5 +1,6 @@
 from utils import data_import
 
+
 def build_layers(data, width, height):
 
     layers = []
@@ -11,12 +12,14 @@ def build_layers(data, width, height):
 
     for index, value in enumerate(data):
         layer = index // (width * height)
-        line = (index % (width*height)) // width
+        line = (index % (width * height)) // width
         layers[layer][line].append(value)
     return layers
 
+
 def count_item(layer, item):
     return sum(pixel == item for line in layer for pixel in line)
+
 
 def part1(data, width=25, height=6):
     layers = build_layers(data, width, height)
@@ -24,10 +27,12 @@ def part1(data, width=25, height=6):
 
     return count_item(best_layer, '1') * count_item(best_layer, '2')
 
+
 def merge_pixels(values):
     for value in values:
         if value != '2':
             return value
+
 
 def merge_layers(layers):
     height = len(layers[0])
@@ -43,10 +48,12 @@ def merge_layers(layers):
 
     return image
 
+
 def convert_pixel(pixel):
     if pixel == '1':
         return '#'
     return ' '
+
 
 def display_layer(layer):
     for line in layer:

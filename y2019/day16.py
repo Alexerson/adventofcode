@@ -1,21 +1,36 @@
-from utils import data_import
-from intcode import Program
-import math
-import itertools
 import collections
-from time import sleep
-from functools import lru_cache
 import cProfile
+import itertools
+import math
 import operator
+from functools import lru_cache
+from time import sleep
+
+from intcode import Program
+
+from utils import data_import
+
 
 @lru_cache()
 def get_pattern(rank, length):
-    times = (length // (4*(rank+1))) + 1
-    return (([0] * (rank+1) + [1] * (rank+1) + [0] * (rank+1) + [-1] * (rank+1)) * times)[1:length+1]
+    times = (length // (4 * (rank + 1))) + 1
+    return (
+        (
+            [0] * (rank + 1)
+            + [1] * (rank + 1)
+            + [0] * (rank + 1)
+            + [-1] * (rank + 1)
+        )
+        * times
+    )[1 : length + 1]
+
 
 def compute_phase(data, PATTERNS):
     input_len = len(data)
-    return [abs(sum(map(operator.mul, data, PATTERNS[rank]))) % 10 for rank in range(input_len)]
+    return [
+        abs(sum(map(operator.mul, data, PATTERNS[rank]))) % 10
+        for rank in range(input_len)
+    ]
 
 
 def part1(data, steps=100):

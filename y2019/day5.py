@@ -1,6 +1,6 @@
-from utils import data_import
 from intcode import Program
 
+from utils import data_import
 
 
 def part1(data):
@@ -11,8 +11,10 @@ def part1(data):
         outputs.append(program.run_until_output(inputs))
     return outputs[-2]
 
+
 def part2(data):
     return Program(data).run_until_output([5])
+
 
 if __name__ == '__main__':
     data = data_import('y2019/data/day5', cast=int, split_char=',')[0]

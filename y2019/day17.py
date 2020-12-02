@@ -1,10 +1,11 @@
-from utils import data_import
-from intcode import Program
-import math
-import itertools
 import collections
+import itertools
+import math
 from time import sleep
 
+from intcode import Program
+
+from utils import data_import
 
 
 def display_image(image):
@@ -15,18 +16,15 @@ def display_image(image):
 
     xs = [x for x, y in image.keys()]
     ys = [y for x, y in image.keys()]
-    
+
     out.append(
         '\n'.join(
-            ''.join(
-                image[(x, y)]
-                for x in range(min(xs), max(xs)+1)
-            )
-            for y in range(min(ys), max(ys)+1)
+            ''.join(image[(x, y)] for x in range(min(xs), max(xs) + 1))
+            for y in range(min(ys), max(ys) + 1)
         )
     )
     print('\n'.join(out))
-    sleep(.05)
+    sleep(0.05)
 
 
 def explore_space(data):
@@ -41,6 +39,7 @@ def explore_space(data):
 
     return stream
 
+
 def convert_stream_into_image(stream):
     image = {}
     position = [0, 0]
@@ -54,6 +53,7 @@ def convert_stream_into_image(stream):
             position[0] += 1
 
     return image
+
 
 def part1(data, debug=False):
 
@@ -72,10 +72,10 @@ def part1(data, debug=False):
     for i in range(cols):
         for j in range(rows):
             if (
-                image.get((i-1, j)) == '#' and
-                image.get((i, j-1)) == '#' and
-                image.get((i+1, j)) == '#' and
-                image.get((i, j+1)) == '#'
+                image.get((i - 1, j)) == '#'
+                and image.get((i, j - 1)) == '#'
+                and image.get((i + 1, j)) == '#'
+                and image.get((i, j + 1)) == '#'
             ):
                 cumsum += i * j
                 if debug:
@@ -89,21 +89,22 @@ def part1(data, debug=False):
 
     return cumsum
 
+
 def find_next_move(image, position, direction):
     # test left:
     if direction == '^':
-        left = (position[0]-1, position[1])
-        right = (position[0]+1, position[1])
+        left = (position[0] - 1, position[1])
+        right = (position[0] + 1, position[1])
     elif direction == '>':
         left = (position[0], position[1] - 1)
         right = (position[0], position[1] + 1)
     elif direction == 'v':
-        left = (position[0]+1, position[1])
-        right = (position[0]-1, position[1])
+        left = (position[0] + 1, position[1])
+        right = (position[0] - 1, position[1])
     elif direction == '<':
-        left = (position[0], position[1]+1)
-        right = (position[0], position[1]-1)
-        
+        left = (position[0], position[1] + 1)
+        right = (position[0], position[1] - 1)
+
     if image.get(left) == '#':
         turn = 'L'
         incr = (left[0] - position[0], left[1] - position[1])
@@ -122,21 +123,26 @@ def find_next_move(image, position, direction):
 
     return (turn, times - 1)
 
+
 def part2(data, debug=False):
     stream = explore_space(data)
     image = convert_stream_into_image(stream)
 
-    position = [(x, y) for (x, y), pixel in image.items() if pixel in ('^', '>', '<', 'v')][0]
+    position = [
+        (x, y)
+        for (x, y), pixel in image.items()
+        if pixel in ('^', '>', '<', 'v')
+    ][0]
     direction = image[position]
 
     moves = []
 
     while True:
-        try:   
+        try:
             turn, duration = find_next_move(image, position, direction)
         except ValueError:
             break
-        
+
         if direction == '^':
             if turn == 'L':
                 direction = '<'
@@ -180,18 +186,18 @@ def part2(data, debug=False):
     function_a = 'R,10,L,12,R,6'
     function_b = 'R,10,L,12,L,12'
     function_c = 'R,6,R,10,R,12,R,6'
-    
+
     data = data[:]
     data[0] = 2
     program = Program(data)
 
-    inputs = [ord(a) for a in '\n'.join([
-        main_routine, 
-        function_a, 
-        function_b, 
-        function_c, 
-        'n'
-    ]) + '\n']
+    inputs = [
+        ord(a)
+        for a in '\n'.join(
+            [main_routine, function_a, function_b, function_c, 'n']
+        )
+        + '\n'
+    ]
     outputs = []
 
     while not program.finished:
@@ -205,8 +211,8 @@ def part2(data, debug=False):
 
     return final_score
 
+
 if __name__ == '__main__':
     data = data_import('y2019/data/day17', cast=int, split_char=',')[0]
     # print('Solution of 1 is', part1(data, debug=False))
     print('Solution of 2 is', part2(data))
-

@@ -1,12 +1,15 @@
-from utils import data_import
 import collections
 from functools import lru_cache
+
+from utils import data_import
+
 
 def convert(data):
     tree = {}
     for a, b in data:
         tree[b] = a
     return tree
+
 
 def depth(item, tree):
     @lru_cache
@@ -16,12 +19,14 @@ def depth(item, tree):
             count += 1
             item = tree[item]
         return count
+
     return depth_sub(item)
+
 
 def part1(data):
     tree = convert(data)
     return sum(depth(item, tree) for item in tree.keys())
-    
+
 
 def part2(data):
     tree = convert(data)
@@ -42,7 +47,9 @@ def part2(data):
         item = tree[item]
         count += 1
 
-    return path_me[item] + count - 2  # -2 because I only need to be one level deeper to change
+    return (
+        path_me[item] + count - 2
+    )  # -2 because I only need to be one level deeper to change
 
 
 if __name__ == '__main__':

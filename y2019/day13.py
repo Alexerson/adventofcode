@@ -1,17 +1,14 @@
-from utils import data_import
-from intcode import Program
-import math
-import itertools
 import collections
+import itertools
+import math
 from time import sleep
 
-MAPPING = {
-    0: ' ',
-    1: '⬜',
-    2: 'O',
-    3: '▄',
-    4: '⚽'
-}
+from intcode import Program
+
+from utils import data_import
+
+MAPPING = {0: ' ', 1: '⬜', 2: 'O', 3: '▄', 4: '⚽'}
+
 
 def part1(data):
     program = Program(data)
@@ -73,15 +70,20 @@ def part2(data, debug=False):
                     play = True
 
         if debug and show and position_ball and position_pad:
-            xs = [x for x, y in tiles.keys()]  
-            ys = [y for x, y in tiles.keys()]  
+            xs = [x for x, y in tiles.keys()]
+            ys = [y for x, y in tiles.keys()]
 
-            rows = [f'{position_ball=} {position_pad=} {current_score=}'] + [''.join(MAPPING.get(tiles.get((x, y)), ' ') for x in range(min(xs), max(xs)+1)) for y in range(min(ys), max(ys)+1)]
+            rows = [f'{position_ball=} {position_pad=} {current_score=}'] + [
+                ''.join(
+                    MAPPING.get(tiles.get((x, y)), ' ')
+                    for x in range(min(xs), max(xs) + 1)
+                )
+                for y in range(min(ys), max(ys) + 1)
+            ]
             print("\n".join(rows))
             print("\n")
-            sleep(.01)
+            sleep(0.01)
             show = False
-
 
     return current_score
 

@@ -1,5 +1,5 @@
-from typing import List, NamedTuple
 import operator
+from typing import List, NamedTuple
 
 from adventofcode.utils import data_import
 

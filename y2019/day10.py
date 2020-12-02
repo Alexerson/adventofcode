@@ -1,5 +1,7 @@
-from utils import data_import
 import math
+
+from utils import data_import
+
 
 def extract_asteroids(data):
     asteroids = set()
@@ -10,25 +12,26 @@ def extract_asteroids(data):
 
     return asteroids
 
+
 def count_visible_asteroids(x0, y0, asteroids):
     valid_reports = set()
     for x, y in asteroids:
         if y != y0:
-            valid_reports.add(((y-y0)/abs(y-y0), (x-x0)/(y-y0)))
+            valid_reports.add(((y - y0) / abs(y - y0), (x - x0) / (y - y0)))
         else:
             if x > x0:
                 valid_reports.add('Inf')
             else:
                 valid_reports.add('-Inf')
 
-    return len(valid_reports) 
+    return len(valid_reports)
 
 
 def part1(data):
     asteroids = extract_asteroids(data)
 
     return max(count_visible_asteroids(x, y, asteroids) for x, y in asteroids)
-        
+
 
 def part2(data):
     asteroids = extract_asteroids(data)
@@ -37,7 +40,7 @@ def part2(data):
     best_value = 0
 
     for x, y in asteroids:
-        value = count_visible_asteroids(x,y, asteroids)
+        value = count_visible_asteroids(x, y, asteroids)
         if value > best_value:
             best = x, y
             best_value = value
@@ -48,19 +51,19 @@ def part2(data):
     for x, y in asteroids:
         if x0 == x:
             if y > y0:
-                angle = -math.pi/2
+                angle = -math.pi / 2
             else:
-                angle = math.pi/2
+                angle = math.pi / 2
         else:
-            angle = -math.atan((y-y0)/(x-x0))
+            angle = -math.atan((y - y0) / (x - x0))
 
         if x < x0:
             angle -= math.pi
 
-        distance = (y0-y)**2 + (x0-x)**2
+        distance = (y0 - y) ** 2 + (x0 - x) ** 2
 
         if x != x0 or y != y0:
-            asteroids_with_angle.append((math.pi/2 - angle, distance, x, y))
+            asteroids_with_angle.append((math.pi / 2 - angle, distance, x, y))
 
     asteroids_with_angle.sort()
 
@@ -72,17 +75,23 @@ def part2(data):
 
     while asteroids_with_angle:
         removed_angle = angle
-        removed = [asteroid for asteroid in asteroids_with_angle if asteroid[0] == angle][0]
+        removed = [
+            asteroid
+            for asteroid in asteroids_with_angle
+            if asteroid[0] == angle
+        ][0]
         count += 1
         if count == 200:
-            return removed[2]*100 + removed[3]
+            return removed[2] * 100 + removed[3]
         asteroids_with_angle.remove(removed)
         previous_angle = angle
         all_angles = set(a[0] for a in asteroids_with_angle)
         if not all_angles:
             return 'No 200th'
         try:
-            angle = min(angle for angle in all_angles if angle > previous_angle)
+            angle = min(
+                angle for angle in all_angles if angle > previous_angle
+            )
         except ValueError:
             angle = min(all_angles)
 

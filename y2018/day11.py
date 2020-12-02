@@ -74,7 +74,7 @@ def part2(serial, max_size=300):
             max_level = level
             coordinates = coord
             max_size_i = size
-            print('So far': coordinates, max_size_i, max_level)
+            print('So far: ', coordinates, max_size_i, max_level)
 
     return coordinates, max_size_i, max_level
 

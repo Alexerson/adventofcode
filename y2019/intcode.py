@@ -1,6 +1,4 @@
-
 class Program(object):
-
     def __init__(self, memory):
         self.memory = list(memory)
         self.memory += [0] * 10000
@@ -29,11 +27,11 @@ class Program(object):
                 params_count = 3
             elif instruction in (99,):
                 params_count = 0
-                
+
             params = [
                 (
-                    memory[self.pointer + 1 + i], 
-                    (parameter_modes // (10**i)) % 10 
+                    memory[self.pointer + 1 + i],
+                    (parameter_modes // (10 ** i)) % 10,
                 )
                 for i in range(params_count)
             ]
@@ -54,7 +52,7 @@ class Program(object):
                 if params[2][1] == 2:
                     index_ += self.relative_base
                 memory[index_] = values[0] + values[1]
-                
+
             elif instruction == 2:
                 index_ = params[2][0]
                 if params[2][1] == 2:
@@ -95,7 +93,7 @@ class Program(object):
 
             elif instruction == 99:
                 self.finished = True
-                return 
+                return
 
             else:
                 raise ValueError("This should not happen")

@@ -3,9 +3,16 @@
 editdistance
 
 
-#Day 10
+# Day 10
 parse
 
 
 # Viz
 Pillow
+
+
+# Linting
+pre-commit
+black
+pylint
+mypy
