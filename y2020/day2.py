@@ -1,4 +1,3 @@
-import operator
 from typing import List, NamedTuple
 
 from adventofcode.utils import data_import
@@ -18,16 +17,14 @@ def convert_item(item: str) -> Record:
 
 
 def check_first_policy(record: Record) -> bool:
-    count = sum(a == record.letter for a in record.password)
+    count = record.password.count(record.letter)
     return record.first_number <= count <= record.second_number
 
 
 def check_second_policy(record: Record) -> bool:
     first_char = record.password[record.first_number - 1]
     second_char = record.password[record.second_number - 1]
-    return operator.xor(
-        first_char == record.letter, second_char == record.letter
-    )
+    return (first_char == record.letter) ^ (second_char == record.letter)
 
 
 def part1(data: List[Record]) -> int:
