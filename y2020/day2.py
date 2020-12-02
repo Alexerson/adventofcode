@@ -1,36 +1,41 @@
-from typing import List, Tuple
+from typing import List, NamedTuple
+import operator
 
 from adventofcode.utils import data_import
 
 
-def convert_item(item: str) -> Tuple[int, int, str, str]:
-    first_index, queue = item.split('-')
-    second_index, letter, password = queue.split(" ")
-    char = letter[:-1]
-    return (int(first_index), int(second_index), char, password)
+class Record(NamedTuple):
+    first_number: int
+    second_number: int
+    letter: str
+    password: str
 
 
-def check_first_policy(min_char, max_char, char, password):
-    count = sum(a == char for a in password)
-    return min_char <= count <= max_char
+def convert_item(item: str) -> Record:
+    numbers, letter, password = item.split(' ')
+    first_number, second_number = numbers.split('-')
+    return Record(int(first_number), int(second_number), letter[0], password)
 
 
-def check_second_policy(first, second, char, password):
-    return (
-        int(password[first - 1] == char) + int(password[second - 1] == char)
-        == 1
+def check_first_policy(record: Record) -> bool:
+    count = sum(a == record.letter for a in record.password)
+    return record.first_number <= count <= record.second_number
+
+
+def check_second_policy(record: Record) -> bool:
+    first_char = record.password[record.first_number - 1]
+    second_char = record.password[record.second_number - 1]
+    return operator.xor(
+        first_char == record.letter, second_char == record.letter
     )
 
 
-def part1(data: List[int]) -> int:
-    return sum(
-        check_first_policy(min_char, max_char, char, password)
-        for min_char, max_char, char, password in data
-    )
+def part1(data: List[Record]) -> int:
+    return sum(check_first_policy(record) for record in data)
 
 
-def part2(data: List[int]) -> int:
-    return sum(check_second_policy(*args) for args in data)
+def part2(data: List[Record]) -> int:
+    return sum(check_second_policy(record) for record in data)
 
 
 if __name__ == '__main__':
