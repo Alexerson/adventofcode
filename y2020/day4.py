@@ -181,5 +181,6 @@ def part2(data: List[Dict[str, Any]]):
 if __name__ == '__main__':
     mydata = data_import('y2020/data/day4')
     print('Input is', mydata)
+    print('Input length is', len(mydata))
     print('Solution of 1 is', part1(mydata))
     print('Solution of 2 is', part2(mydata))
