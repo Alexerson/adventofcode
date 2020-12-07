@@ -81,9 +81,7 @@ def part2(data: Dict[str, List[Tuple[int, str]]]) -> int:
 
 
 if __name__ == '__main__':
-    mydata = convert_data(
-        data_import('y2020/data/day7_example', split_char='contain')
-    )
+    mydata = convert_data(data_import('y2020/data/day7', split_char='contain'))
     # print('Input is', mydata)
     print('Input length is', len(mydata))
 
