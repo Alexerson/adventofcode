@@ -20,10 +20,18 @@ def part1(data: List[int], length: int = 25) -> int:
 
 
 def part2(data: List[int], target: int) -> int:
-    for i in range(len(data)):
-        for j in range(i + 1, len(data)):
-            if sum(data[i:j]) == target:
-                return max(data[i:j]) + min(data[i:j])
+    for i, value in enumerate(data):
+        current_sum = value
+        min_value = value
+        max_value = value
+        for j, value2 in enumerate(data[i + 1 :]):
+            current_sum += value2
+            if value2 > max_value:
+                max_value = value2
+            if value2 < min_value:
+                min_value = value2
+            if current_sum == target:
+                return min_value + max_value
 
     raise Exception('No solution')
 
