@@ -47,7 +47,7 @@ def extract_tree(data: Dict[str, List[Tuple[int, str]]]) -> Dict[str, Set]:
     return out
 
 
-def part1(tree: Dict[str, Set]) -> Set[str]:
+def part1(tree: Dict[str, Set]) -> int:
 
     root = 'shiny gold'
 
@@ -64,7 +64,7 @@ def part1(tree: Dict[str, Set]) -> Set[str]:
     return len(done - {root})
 
 
-def part2_count(data: Dict[str, List[Tuple[int, str]]], root) -> int:
+def part2_count(data: Dict[str, List[Tuple[int, str]]], root: str) -> int:
 
     out = 1
 
