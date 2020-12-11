@@ -24,7 +24,7 @@ def part2(data: List[int], target: int) -> int:
         current_sum = value
         min_value = value
         max_value = value
-        for j, value2 in enumerate(data[i + 1 :]):
+        for value2 in data[i + 1 :]:
             current_sum += value2
             if value2 > max_value:
                 max_value = value2
