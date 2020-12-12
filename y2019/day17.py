@@ -214,5 +214,5 @@ def part2(data, debug=False):
 
 if __name__ == '__main__':
     data = data_import('y2019/data/day17', cast=int, split_char=',')[0]
-    # print('Solution of 1 is', part1(data, debug=False))
+    print('Solution of 1 is', part1(data, debug=False))
     print('Solution of 2 is', part2(data))

@@ -190,3 +190,13 @@ if __name__ == '__main__':
 
     print('Solution of 1 is', part1(moons, 1000))
     print('Solution of 2 is', part2(moons))
+
+    moons = [
+        Moon(1, 5, -1, 5),
+        Moon(2, 0, -14, 2),
+        Moon(3, 16, 4, 0),
+        Moon(4, 18, 1, 16),
+    ]
+
+    print('Solution of 1 is', part1(moons, 1000))
+    print('Solution of 2 is', part2(moons))

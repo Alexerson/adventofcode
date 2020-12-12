@@ -116,7 +116,7 @@ def part2(data):
             if (x, y) in white_panels:
                 out.append("#")
             else:
-                out.append(".")
+                out.append(" ")
         print(''.join(out))
 
     return None

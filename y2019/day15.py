@@ -122,21 +122,28 @@ def part1(data, debug=True):
         display_space(space)
         display_distances(distances)
 
-    oxygenes = [(x, y) for (x, y), value in space.items() if value == 2]
-    return [distances.get(oxygene) for oxygene in oxygenes]
+    oxygene = [(x, y) for (x, y), value in space.items() if value == 2][0]
+
+    if debug:
+        print('Furthest place is at', max(distances.values()))
+    return distances.get(oxygene), max(distances.values())
 
 
 def part2(data):
-    # I did this one manually after printing the map:
-    # The biggest distance is 410 and it shares the 156 distance point witht eh oxygen
-    # So the time for the oxygen to get there is 252 - 156 + 410 - 156
-    pass
+    distance_to_o2, furthest_distance = part1(data, debug=False)
+    print(
+        f"We can do this one manually. First find the furthest point in the part 1 map debug ({furthest_distance}).\n"
+        "Then find where the path to the highest point branch from the path to the oxygen.\n"
+        "Finally, do this simple math:  (distance_to_O2 + furthest_distance) - 2 * (distance_to_branching)"
+    )
+    branching = input("What's the branch value?")
+    return distance_to_o2 + furthest_distance - 2 * int(branching)
 
 
 if __name__ == '__main__':
     data = data_import('y2019/data/day15', cast=int, split_char=',')[0]
-    print('Solution of 1 is', part1(data, debug=True))
-#    print('Solution of 2 is', part2(data))
+    print('Solution of 1 is', part1(data)[0])
+    print('Solution of 2 is', part2(data))
 
 252 - 156  # Pour aller au carrefour
 410 - 156  # Pour aller au bout

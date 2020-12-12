@@ -66,5 +66,5 @@ if __name__ == '__main__':
     data = data_import('y2019/data/day18')
     data_example = data_import('y2019/data/day18_example')
     print('Solution of example 1 is', part1(data_example))
-    # print('Solution of 1 is', part1(data))
-    # print('Solution of 2 is', part2(data))
+    print('Solution of 1 is', part1(data))
+    print('Solution of 2 is', part2(data))

@@ -26,7 +26,7 @@ def part2(start, end):
 
 
 if __name__ == '__main__':
-    start = 158126
-    end = 624574
+    start = 152085
+    end = 670283
     print('Solution of 1 is', part1(start, end))
     print('Solution of 2 is', part2(start, end))
