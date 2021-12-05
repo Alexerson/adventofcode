@@ -9,8 +9,8 @@ class Position:
     y: int = 0
     aim: int = 0
 
-    def apply(self, action: 'Action', with_aim: bool = False):
-        action.verb.apply(self, action.value, with_aim)
+    def apply(self, action: 'Action', with_aim: bool = False) -> 'Position':
+        action.apply(self, with_aim)
 
 
 class Verb(Enum):
@@ -18,33 +18,28 @@ class Verb(Enum):
     DOWN = 'down'
     UP = 'up'
 
-    def apply(
-        self, position: Position, value: int, with_aim: bool = False
-    ) -> None:
-
-        if not with_aim:
-
-            if self == Verb.FORWARD:
-                position.x += value
-            elif self == Verb.DOWN:
-                position.y -= value
-            elif self == Verb.UP:
-                position.y += value
-
-        else:
-
-            if self == Verb.FORWARD:
-                position.x += value
-                position.y -= position.aim * value
-            elif self == Verb.DOWN:
-                position.aim += value
-            elif self == Verb.UP:
-                position.aim -= value
-
 
 class Action(NamedTuple):
     verb: Verb
     value: int
+
+    def apply(self, position: Position, with_aim: bool = False) -> None:
+
+        match (self.verb, with_aim):
+            case Verb.FORWARD, False:
+                position.x += self.value
+            case Verb.DOWN, False:
+                position.y -= self.value
+            case Verb.UP, False:
+                position.y += self.value
+
+            case Verb.FORWARD, True:
+                position.x += self.value
+                position.y -= position.aim * self.value
+            case Verb.DOWN, True:
+                position.aim += self.value
+            case Verb.UP, True:
+                position.aim -= self.value
 
 
 def convert_data(data: list[list[str]]) -> list[Action]:

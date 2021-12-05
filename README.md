@@ -2,6 +2,10 @@ This repo includes the solution I propose for Eric Wastl's Advent of Code: https
 
 Before using, make sure to install the required libraries.
 
+I’m trying the language latest features when I can and think about it.
+
+As of 2021, make sure you have Python 3.10!
+
 ```shell
 pip install -r requirements.txt
 ```
