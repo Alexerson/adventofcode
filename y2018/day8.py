@@ -5,7 +5,7 @@ from utils import data_import
 
 # We use a recursive algorithm to extract metadata
 def find_metadata(data):
-    ''' Take a full dataset in input and extract the metadata '''
+    '''Take a full dataset in input and extract the metadata'''
 
     # First, we extract what we can from the data we have
     children_count = data[0]
