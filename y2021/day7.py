@@ -2,10 +2,9 @@ from utils import data_import
 
 
 def part1(data: list[int]) -> int:
-
     return min(
         sum(abs(x - position) for x in data)
-        for position in range(min(data), max(data) + 1)
+        for position in range(min(data), max(data))
     )
 
 
@@ -17,7 +16,7 @@ def cost(x, y):
 def part2(data: list[int]) -> int:
     return min(
         sum(cost(x, position) for x in data)
-        for position in range(min(data), max(data) + 1)
+        for position in range(min(data), max(data))
     )
 
 
