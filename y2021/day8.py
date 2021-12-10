@@ -77,7 +77,7 @@ def rewire(inputs: list[str]) -> dict[str, int]:
     return wires
 
 
-def decode(output: list[str], wires: dict[set[str], int]) -> int:
+def decode(output: list[str], wires: dict[str, int]) -> int:
     return int(
         ''.join(str(wires["".join(sorted(set(digit)))]) for digit in output)
     )
