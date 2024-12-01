@@ -1,20 +1,13 @@
-[tool]
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
-    [tool.black]
-    line-length = 79
-    target_version = ['py310']
-    skip-string-normalization=true
+[project]
+name = "adventofcode"
+version = "0.1.0"
+description = "Advent of Code solutions"
+readme = "README.md"
+requires-python = ">=3.8"
 
-    [tool.isort]
-    filter_files = true
-    multi_line_output = 3
-    include_trailing_comma = true
-    force_grid_wrap = false
-    line_length = 79
-    skip = [".git"]
-    combine_as_imports = true
-
-    [tool.pylint]
-        [tool.pylint.'MESSAGES CONTROL']
-        # We don't add docstrings all over the place and we trust black for indentation
-        disable="missing-module-docstring,missing-class-docstring,missing-function-docstring,bad-continuation"
+[tool.setuptools]
+package-dir = {"" = "src"}
