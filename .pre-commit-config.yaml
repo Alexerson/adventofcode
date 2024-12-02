@@ -28,6 +28,8 @@ repos:
         name: mypy
         entry: "uv run --frozen mypy"
         files: src/y2024/.*\.py$
-        language: system
+        language: python
         types: [python]
         require_serial: true
+        additional_dependencies:
+          - "uv==0.5.4"

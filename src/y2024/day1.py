@@ -11,11 +11,8 @@ def part1(list1: list[int], list2: list[int]) -> int:
 
 
 def part2(list1: list[int], list2: list[int]) -> int:
-    total = 0
     list2_counts = collections.Counter(list2)
-    for a in list1:
-        total += a * list2_counts.get(a, 0)
-    return total
+    return sum(a * list2_counts.get(a, 0) for a in list1)
 
 
 if __name__ == '__main__':
