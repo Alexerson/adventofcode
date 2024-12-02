@@ -1,6 +1,6 @@
 import math
 
-from utils import data_import
+from src.utils import data_import
 
 
 def flip(drawing):

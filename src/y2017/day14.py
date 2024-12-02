@@ -1,4 +1,4 @@
-from y2017.day10 import part2 as knot_hash
+from .day10 import part2 as knot_hash
 
 
 def part1(data):

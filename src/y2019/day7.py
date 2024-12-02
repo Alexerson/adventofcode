@@ -2,9 +2,9 @@ import contextlib
 import operator
 from itertools import permutations
 
-from intcode import Program
+from src.utils import data_import
 
-from utils import data_import
+from .intcode import Program
 
 
 def part1(data):

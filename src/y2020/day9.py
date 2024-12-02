@@ -2,7 +2,7 @@ from collections import deque
 from itertools import combinations
 from typing import List
 
-from utils import data_import
+from src.utils import data_import
 
 
 class NoSolutionError(Exception):

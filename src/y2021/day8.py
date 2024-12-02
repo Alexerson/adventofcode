@@ -1,4 +1,4 @@
-from utils import data_import
+from src.utils import data_import
 
 
 def convert(data: list[str]) -> list[tuple[list[str], list[str]]]:

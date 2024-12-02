@@ -2,7 +2,7 @@ import math
 import operator
 import random
 
-from utils import data_import
+from src.utils import data_import
 
 
 def convert_to_nanobots(data):

@@ -1,7 +1,7 @@
 from collections import deque
 from time import sleep
 
-from utils import data_import
+from src.utils import data_import
 
 DEBUG = False
 

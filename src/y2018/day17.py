@@ -1,6 +1,6 @@
 from PIL import Image
 
-from utils import data_import
+from src.utils import data_import
 
 
 def convert_data(data):

@@ -1,7 +1,7 @@
 from copy import deepcopy
 from typing import List, Tuple
 
-from utils import data_import
+from src.utils import data_import
 
 
 class NoFinishError(Exception):

@@ -1,9 +1,9 @@
 import collections
 from time import sleep
 
-from intcode import Program
+from src.utils import data_import
 
-from utils import data_import
+from .intcode import Program
 
 MAPPING = {0: ' ', 1: '⬜', 2: 'O', 3: '▄', 4: '⚽'}
 

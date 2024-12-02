@@ -1,6 +1,6 @@
 import itertools
 
-from utils import data_import
+from src.utils import data_import
 
 
 def apply_mask_v1(mask, value):

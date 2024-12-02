@@ -1,4 +1,4 @@
-from utils import data_import
+from src.utils import data_import
 
 
 def build_layers(data, width, height):

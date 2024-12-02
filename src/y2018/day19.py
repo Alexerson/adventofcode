@@ -1,4 +1,4 @@
-from utils import data_import
+from src.utils import data_import
 
 functions = {
     'addr': lambda a, b, registers: registers[a] + registers[b],

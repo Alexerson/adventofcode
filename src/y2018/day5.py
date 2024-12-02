@@ -1,6 +1,6 @@
 import operator
 
-from utils import data_import
+from src.utils import data_import
 
 
 def is_reverse_polarity(a, b):

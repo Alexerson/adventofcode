@@ -1,6 +1,6 @@
 import collections
 
-from utils import data_import
+from src.utils import data_import
 
 
 def part1(list1: list[int], list2: list[int]) -> int:
@@ -20,9 +20,12 @@ def part2(list1: list[int], list2: list[int]) -> int:
 
 if __name__ == '__main__':
     mydata = data_import('data/y2024/day1', int, split_char=' ')
-    list1, list2 = zip(*mydata)
-    list1 = list(list1)
-    list2 = list(list2)
+
+    list1: list[int] = []
+    list2: list[int] = []
+    for a, b in mydata:
+        list1.append(a)
+        list2.append(b)
 
     # print('Input is', mydata)
     print('Solution of 1 is', part1(list1, list2))

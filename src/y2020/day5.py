@@ -1,6 +1,6 @@
 from typing import List
 
-from utils import data_import
+from src.utils import data_import
 
 
 def convert_seat_to_id(seat: str) -> int:

@@ -1,6 +1,28 @@
-def data_import(filename, cast=str, split_char=None, rstrip=False):
+from pathlib import Path
+from typing import Any, overload
+
+
+@overload
+def data_import(
+    filename: str, cast=..., split_char: str = ..., rstrip: bool = ...
+) -> list[list]: ...
+
+
+@overload
+def data_import(
+    filename: str, cast=..., split_char: None = ..., rstrip: bool = ...
+) -> list: ...
+
+
+def data_import(
+    filename: str,
+    cast=str,
+    split_char: str | None = None,
+    rstrip: bool = False,
+) -> list[Any] | list[list[Any]]:
+    path = Path(filename)
     data = []
-    with open(filename, encoding='utf-8') as file:
+    with path.open(encoding='utf-8') as file:
         line = file.readline()
         while line:
             if (rstrip and line.rstrip()) or line.strip():

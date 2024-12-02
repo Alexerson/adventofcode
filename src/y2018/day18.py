@@ -1,6 +1,6 @@
 from collections import Counter
 
-from utils import data_import
+from src.utils import data_import
 
 
 def part1(data, nb_cycles=10, debug=False):

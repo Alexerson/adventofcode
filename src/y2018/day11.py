@@ -1,6 +1,3 @@
-grid = {}
-
-
 def get_power(x, y, serial):
     rack_id = x + 10
     power = (rack_id * y + serial) * rack_id

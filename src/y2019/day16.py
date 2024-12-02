@@ -1,7 +1,7 @@
 import operator
 from functools import lru_cache
 
-from utils import data_import
+from src.utils import data_import
 
 
 @lru_cache

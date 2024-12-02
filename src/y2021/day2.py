@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import NamedTuple
 
-from utils import data_import
+from src.utils import data_import
 
 
 class Position:
@@ -11,6 +11,7 @@ class Position:
 
     def apply(self, action: 'Action', with_aim: bool = False) -> 'Position':
         action.apply(self, with_aim)
+        return self
 
 
 class Verb(Enum):

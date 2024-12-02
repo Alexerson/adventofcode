@@ -1,7 +1,7 @@
 import contextlib
 import math
 
-from utils import data_import
+from src.utils import data_import
 
 
 def convert_data(data: list[str]) -> list[list[int]]:

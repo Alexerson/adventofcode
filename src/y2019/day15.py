@@ -1,8 +1,8 @@
 from time import sleep
 
-from intcode import Program
+from src.utils import data_import
 
-from utils import data_import
+from .intcode import Program
 
 NORTH = 1
 SOUTH = 2

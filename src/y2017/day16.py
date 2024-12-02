@@ -1,7 +1,7 @@
 from collections import deque
 from string import ascii_lowercase
 
-from utils import data_import
+from src.utils import data_import
 
 
 def part1(data, length=16, line=None):

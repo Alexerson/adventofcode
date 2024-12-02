@@ -1,7 +1,7 @@
 import contextlib
 from copy import copy
 
-from utils import data_import
+from src.utils import data_import
 
 
 class Board:
@@ -48,7 +48,7 @@ def convert(data: list[str], board_lines=5) -> tuple[list[int], list[Board]]:
     return drawn_numbers, boards
 
 
-def part1(drawn_numbers: list[int], boards: list[Board]) -> list[int]:
+def part1(drawn_numbers: list[int], boards: list[Board]) -> list[int] | None:
     for number in drawn_numbers:
         for board in boards:
             board.mark(number)

@@ -1,6 +1,6 @@
 from typing import Dict, List, Set, Tuple
 
-from utils import data_import
+from src.utils import data_import
 
 
 def convert_data(data: List[List[str]]) -> Dict[str, List[Tuple[int, str]]]:
@@ -13,10 +13,10 @@ def convert_data(data: List[List[str]]) -> Dict[str, List[Tuple[int, str]]]:
         out[container] = []
 
         for content in contents.split(','):
-            count, color = content.strip().split(' ', maxsplit=1)
+            count_str, color = content.strip().split(' ', maxsplit=1)
 
             try:
-                count = int(count)
+                count = int(count_str)
             except ValueError:
                 count = 0
 
