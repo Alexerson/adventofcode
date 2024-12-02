@@ -1,7 +1,7 @@
 from copy import deepcopy
 from typing import Dict, List, Tuple
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 class Room:

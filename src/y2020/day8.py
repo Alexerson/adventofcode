@@ -1,7 +1,11 @@
 from copy import deepcopy
 from typing import List, Tuple
 
-from adventofcode.utils import data_import
+from utils import data_import
+
+
+class NoFinishError(Exception):
+    pass
 
 
 def convert_data(data: List[List[str]]) -> List[Tuple[str, int]]:
@@ -59,8 +63,7 @@ def part2(data) -> int:
         if finished:
             return result
 
-    msg = 'No finish'
-    raise Exception(msg)
+    raise NoFinishError
 
 
 if __name__ == '__main__':

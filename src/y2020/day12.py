@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Tuple
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 class Direction(Enum):

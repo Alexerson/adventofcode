@@ -4,10 +4,7 @@ from utils import data_import
 
 
 def convert(data):
-    tree = {}
-    for a, b in data:
-        tree[b] = a
-    return tree
+    return {b: a for a, b in data}
 
 
 def depth(item, tree):

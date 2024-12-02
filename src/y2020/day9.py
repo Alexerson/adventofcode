@@ -2,7 +2,11 @@ from collections import deque
 from itertools import combinations
 from typing import List
 
-from adventofcode.utils import data_import
+from utils import data_import
+
+
+class NoSolutionError(Exception):
+    pass
 
 
 def part1(data: List[int], length: int = 25) -> int:
@@ -16,8 +20,7 @@ def part1(data: List[int], length: int = 25) -> int:
         considered_set.append(number)
         considered_set.popleft()
 
-    msg = 'No solution'
-    raise Exception(msg)
+    raise NoSolutionError
 
 
 def part2(data: List[int], target: int) -> int:
@@ -32,8 +35,7 @@ def part2(data: List[int], target: int) -> int:
             if current_sum == target:
                 return min_value + max_value
 
-    msg = 'No solution'
-    raise Exception(msg)
+    raise NoSolutionError
 
 
 if __name__ == '__main__':

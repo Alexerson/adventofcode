@@ -22,12 +22,9 @@ def build_tree(data):
 
 def get_root(parents):
     leaf = next(iter(parents.keys()))
-
-    while True:
-        try:
-            leaf = parents[leaf]
-        except KeyError:
-            return leaf
+    while leaf in parents:
+        leaf = parents[leaf]
+    return leaf
 
 
 def part1(data):

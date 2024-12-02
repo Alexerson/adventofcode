@@ -34,10 +34,7 @@ def part1(data):
     # while tuple(registers) not in known:
     while registers[instruction_register] != 28:
         instruction_pointer = registers[instruction_register]
-        try:
-            line = commands[instruction_pointer]
-        except IndexError:
-            raise
+        line = commands[instruction_pointer]
 
         command = line[0]
         a = int(line[1])
@@ -77,11 +74,7 @@ def part2(data):
             last_valid = registers[1]
 
         instruction_pointer = registers[instruction_register]
-        try:
-            line = commands[instruction_pointer]
-        except IndexError:
-            raise
-            # return registers[0]
+        line = commands[instruction_pointer]
 
         command = line[0]
         a = int(line[1])

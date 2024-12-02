@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 def part1(data: List[int]) -> int:

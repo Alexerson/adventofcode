@@ -1,7 +1,7 @@
 import math
 from typing import List
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 def is_tree(nrow, ncol, data) -> bool:

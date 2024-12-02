@@ -1,6 +1,6 @@
 from typing import Dict, List, Set, Tuple
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 def convert_data(data: List[List[str]]) -> Dict[str, List[Tuple[int, str]]]:

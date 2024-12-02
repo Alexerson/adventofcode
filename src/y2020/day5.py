@@ -1,6 +1,6 @@
 from typing import List
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 def convert_seat_to_id(seat: str) -> int:

@@ -1,6 +1,6 @@
 from typing import List, NamedTuple
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 class Record(NamedTuple):

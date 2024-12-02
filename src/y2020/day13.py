@@ -2,7 +2,7 @@ import operator
 from math import lcm
 from typing import List, Literal, Tuple, Union
 
-from adventofcode.utils import data_import
+from utils import data_import
 
 
 def convert_data(data) -> Tuple[int, List[Union[Literal['x'], int]]]:

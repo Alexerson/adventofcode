@@ -51,15 +51,7 @@ def part1(data: List[Dict[str, Any]]):
         # "cid",
     }
 
-    valids = []
-    for item in data:
-        try:
-            for key in needed_keys:
-                item[key]
-        except KeyError:
-            continue
-        else:
-            valids.append(item)
+    valids = [item for item in data if needed_keys.issubset(item.keys())]
 
     return len(valids)
 
