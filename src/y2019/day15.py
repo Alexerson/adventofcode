@@ -1,6 +1,3 @@
-import collections
-import itertools
-import math
 from time import sleep
 
 from intcode import Program
@@ -18,15 +15,14 @@ DISPLAY = {-1: ' ', 1: ' ', 0: '█', 2: '⦾', 3: '#', 4: '⚐'}
 
 
 def display_space(space):
-
     space = space.copy()
 
-    space[(0, 0)] = 4
+    space[0, 0] = 4
 
     out = ['\nSpace:']
 
-    xs = [x for x, y in space.keys()]
-    ys = [y for x, y in space.keys()]
+    xs = [x for x, y in space]
+    ys = [y for x, y in space]
 
     out.append(
         '\n'.join(
@@ -35,18 +31,15 @@ def display_space(space):
                 for x in range(min(xs), max(xs) + 1)
             )
             for y in range(min(ys), max(ys) + 1)
-        )
+        ),
     )
     print('\n'.join(out))
     sleep(0.05)
 
 
 def display_distances(distances):
-
-    max_distance_length = max(len(str(a)) for a in distances.values())
-
-    xs = [x for x, y in distances.keys()]
-    ys = [y for x, y in distances.keys()]
+    xs = [x for x, y in distances]
+    ys = [y for x, y in distances]
 
     out = ['\nDistances:']
     out.append(
@@ -56,7 +49,7 @@ def display_distances(distances):
                 for x in range(min(xs), max(xs) + 1)
             )
             for y in range(min(ys), max(ys) + 1)
-        )
+        ),
     )
     print('\n'.join(out))
     sleep(0.05)
@@ -89,7 +82,7 @@ def explore_space(data):
             if not last_correct_directions:
                 break
             last_correct_direction = last_correct_directions.pop()
-            if last_correct_direction in (EAST, SOUTH):
+            if last_correct_direction in {EAST, SOUTH}:
                 direction = last_correct_direction - 1
             else:
                 direction = last_correct_direction + 1
@@ -98,7 +91,7 @@ def explore_space(data):
         x = program.run_until_output([direction])
 
         movement = MOVEMENT[direction]
-        space[(position[0] + movement[0], position[1] + movement[1])] = x
+        space[position[0] + movement[0], position[1] + movement[1]] = x
 
         if x != 0:
             distance = distances[tuple(position)]
@@ -115,14 +108,13 @@ def explore_space(data):
 
 
 def part1(data, debug=True):
-
     space, distances = explore_space(data)
 
     if debug:
         display_space(space)
         display_distances(distances)
 
-    oxygene = [(x, y) for (x, y), value in space.items() if value == 2][0]
+    oxygene = next((x, y) for (x, y), value in space.items() if value == 2)
 
     if debug:
         print('Furthest place is at', max(distances.values()))
@@ -132,9 +124,13 @@ def part1(data, debug=True):
 def part2(data):
     distance_to_o2, furthest_distance = part1(data, debug=False)
     print(
-        f"We can do this one manually. First find the furthest point in the part 1 map debug ({furthest_distance}).\n"
-        "Then find where the path to the highest point branch from the path to the oxygen.\n"
-        "Finally, do this simple math:  (distance_to_O2 + furthest_distance) - 2 * (distance_to_branching)"
+        'We can do this one manually. '
+        'First find the furthest point in the part 1'
+        f' map debug ({furthest_distance}).\n'
+        'Then find where the path to the highest point branch '
+        'from the path to the oxygen.\n'
+        'Finally, do this simple math:  '
+        '(distance_to_O2 + furthest_distance) - 2 * (distance_to_branching)',
     )
     branching = input("What's the branch value?")
     return distance_to_o2 + furthest_distance - 2 * int(branching)
@@ -145,5 +141,5 @@ if __name__ == '__main__':
     print('Solution of 1 is', part1(data)[0])
     print('Solution of 2 is', part2(data))
 
-252 - 156  # Pour aller au carrefour
-410 - 156  # Pour aller au bout
+# 252 - 156  # Pour aller au carrefour
+# 410 - 156  # Pour aller au bout

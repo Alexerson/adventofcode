@@ -1,6 +1,3 @@
-from utils import data_import
-
-
 def generator(seed, factor, multiple=1):
     value = seed
 
@@ -17,7 +14,7 @@ def part1(seed_a, seed_b, rounds=40000000):
 
     judge_count = 0
 
-    for round_ in range(rounds):
+    for _round in range(rounds):
         value_a = next(generator_a)
         value_b = next(generator_b)
 
@@ -33,7 +30,7 @@ def part2(seed_a, seed_b, rounds=5000000):
 
     judge_count = 0
 
-    for round_ in range(rounds):
+    for _round in range(rounds):
         value_a = next(generator_a)
         value_b = next(generator_b)
 

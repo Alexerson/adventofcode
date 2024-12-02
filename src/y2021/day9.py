@@ -1,3 +1,4 @@
+import contextlib
 import math
 
 from utils import data_import
@@ -8,31 +9,22 @@ def convert_data(data: list[str]) -> list[list[int]]:
 
 
 def part1(data: list[list[int]]) -> int:
-
     low_points = []
 
     for x, line in enumerate(data):
         for y, item in enumerate(line):
             neighbours = []
-            try:
+            with contextlib.suppress(IndexError):
                 neighbours.append(data[x - 1][y])
-            except IndexError:
-                pass
 
-            try:
+            with contextlib.suppress(IndexError):
                 neighbours.append(data[x + 1][y])
-            except IndexError:
-                pass
 
-            try:
-                neighbours.append(data[x][y - 1])
-            except IndexError:
-                pass
+            with contextlib.suppress(IndexError):
+                neighbours.append(line[y - 1])
 
-            try:
-                neighbours.append(data[x][y + 1])
-            except IndexError:
-                pass
+            with contextlib.suppress(IndexError):
+                neighbours.append(line[y + 1])
 
             if all(item < neighbour for neighbour in neighbours):
                 low_points.append((item + 1, x, y))
@@ -51,25 +43,17 @@ def part2(data: list[list[int]]) -> int:
                 if item != level:
                     continue
                 neighbours = set()
-                try:
+                with contextlib.suppress(KeyError):
                     neighbours.add(bassins[x - 1, y])
-                except KeyError:
-                    pass
 
-                try:
+                with contextlib.suppress(KeyError):
                     neighbours.add(bassins[x + 1, y])
-                except KeyError:
-                    pass
 
-                try:
+                with contextlib.suppress(KeyError):
                     neighbours.add(bassins[x, y - 1])
-                except KeyError:
-                    pass
 
-                try:
+                with contextlib.suppress(KeyError):
                     neighbours.add(bassins[x, y + 1])
-                except KeyError:
-                    pass
 
                 # We have a new bassin
                 if len(neighbours) == 0:
@@ -100,7 +84,7 @@ def part2(data: list[list[int]]) -> int:
     return math.prod(
         sorted(
             (len(bassin) for bassin in bassin_reverse.values()), reverse=True
-        )[:3]
+        )[:3],
     )
 
 

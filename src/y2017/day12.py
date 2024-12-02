@@ -24,9 +24,9 @@ def part1(data):
     while to_visit:
         node = to_visit.pop()
         known.add(node)
-        for dest in mappings.get(node):
-            if dest not in known:
-                to_visit.append(dest)
+        to_visit.extend(
+            dest for dest in mappings.get(node) if dest not in known
+        )
 
     return known
 
@@ -44,22 +44,21 @@ def part2(data):
 
         while to_visit:
             node = to_visit.pop()
-            if node in unknown:
-                unknown.remove(node)
-            for dest in mappings.get(node):
-                if dest in unknown:
-                    to_visit.append(dest)
+            unknown.discard(node)
+            to_visit.extend(
+                dest for dest in mappings.get(node) if dest in unknown
+            )
 
     return groups
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day12_example', str, '<->')
+    data = data_import('data/y2017/day12_example', str, '<->')
 
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))
 
-    data = data_import('2017/data/day12_real', str, '<->')
+    data = data_import('data/y2017/day12_real', str, '<->')
 
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

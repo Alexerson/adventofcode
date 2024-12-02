@@ -18,11 +18,10 @@ def count_visible_asteroids(x0, y0, asteroids):
     for x, y in asteroids:
         if y != y0:
             valid_reports.add(((y - y0) / abs(y - y0), (x - x0) / (y - y0)))
+        elif x > x0:
+            valid_reports.add('Inf')
         else:
-            if x > x0:
-                valid_reports.add('Inf')
-            else:
-                valid_reports.add('-Inf')
+            valid_reports.add('-Inf')
 
     return len(valid_reports)
 
@@ -50,10 +49,7 @@ def part2(data):
     asteroids_with_angle = []
     for x, y in asteroids:
         if x0 == x:
-            if y > y0:
-                angle = -math.pi / 2
-            else:
-                angle = math.pi / 2
+            angle = -math.pi / 2 if y > y0 else math.pi / 2
         else:
             angle = -math.atan((y - y0) / (x - x0))
 
@@ -67,25 +63,24 @@ def part2(data):
 
     asteroids_with_angle.sort()
 
-    all_angles = set(a[0] for a in asteroids_with_angle)
+    all_angles = {a[0] for a in asteroids_with_angle}
 
     angle = min(all_angles)
 
     count = 0
 
     while asteroids_with_angle:
-        removed_angle = angle
-        removed = [
+        removed = next(
             asteroid
             for asteroid in asteroids_with_angle
             if asteroid[0] == angle
-        ][0]
+        )
         count += 1
         if count == 200:
             return removed[2] * 100 + removed[3]
         asteroids_with_angle.remove(removed)
         previous_angle = angle
-        all_angles = set(a[0] for a in asteroids_with_angle)
+        all_angles = {a[0] for a in asteroids_with_angle}
         if not all_angles:
             return 'No 200th'
         try:
@@ -94,10 +89,10 @@ def part2(data):
             )
         except ValueError:
             angle = min(all_angles)
+    return None
 
 
 if __name__ == '__main__':
-
     data = data_import('data/y2019/day10', cast=str)
 
     print('Solution of 1 is', part1(data))

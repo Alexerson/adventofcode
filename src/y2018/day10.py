@@ -4,8 +4,7 @@ from utils import data_import
 
 
 def extract_data(data):
-
-    format_string = "position=<{},{}> velocity=<{},{}>"
+    format_string = 'position=<{},{}> velocity=<{},{}>'
     out = [parse.parse(format_string, item) for item in data]
 
     return [[int(a) for a in line] for line in out]
@@ -31,7 +30,7 @@ def display_data(data, show=True):
     points = {}
 
     for item in data:
-        points[(item[0], item[1])] = True
+        points[item[0], item[1]] = True
 
     x, y = zip(*points.keys())
 
@@ -54,19 +53,18 @@ def display_data(data, show=True):
 
 
 def part1(data):
-
     time = 0
 
     data_ = extract_data(data)
 
-    points, min_x, max_x, min_y, max_y = display_data(data_, False)
+    _points, min_x, max_x, min_y, max_y = display_data(data_, False)
     distance = max_x - min_x + max_y - min_y
 
     while True:
         time += 1
         move_once(data_)
 
-        points, min_x, max_x, min_y, max_y = display_data(data_, False)
+        _points, min_x, max_x, min_y, max_y = display_data(data_, False)
         new_distance = max_x - min_x + max_y - min_y
 
         if new_distance > distance:

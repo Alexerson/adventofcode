@@ -1,9 +1,10 @@
+from pathlib import Path
 from typing import List, Set
 
 
-def data_import(filename: str) -> List[List[Set[str]]]:
+def data_import(filename: Path) -> List[List[Set[str]]]:
     data = []
-    with open(filename) as file:
+    with filename.open(encoding='utf-8') as file:
         line = file.readline()
 
         group: List[Set[str]] = []
@@ -31,7 +32,7 @@ def part2(data: List[List[Set[str]]]) -> int:
 
 
 if __name__ == '__main__':
-    mydata = data_import('data/y2020/day6')
+    mydata = data_import(Path('data/y2020/day6'))
     # print('Input is', mydata)
     print('Input length is', len(mydata))
     print('Solution of 1 is', part1(mydata))

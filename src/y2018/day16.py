@@ -1,22 +1,22 @@
 from utils import data_import
 
 functions = {
-    "addr": lambda a, b, registers: registers[a] + registers[b],
-    "addi": lambda a, b, registers: registers[a] + b,
-    "mulr": lambda a, b, registers: registers[a] * registers[b],
-    "muli": lambda a, b, registers: registers[a] * b,
-    "banr": lambda a, b, registers: registers[a] & registers[b],
-    "bani": lambda a, b, registers: registers[a] & b,
-    "borr": lambda a, b, registers: registers[a] | registers[b],
-    "bori": lambda a, b, registers: registers[a] | b,
-    "setr": lambda a, b, registers: registers[a],
-    "seti": lambda a, b, registers: a,
-    "gtir": lambda a, b, registers: int(a > registers[b]),
-    "gtri": lambda a, b, registers: int(registers[a] > b),
-    "gtrr": lambda a, b, registers: int(registers[a] > registers[b]),
-    "eqir": lambda a, b, registers: int(a == registers[b]),
-    "eqri": lambda a, b, registers: int(registers[a] == b),
-    "eqrr": lambda a, b, registers: int(registers[a] == registers[b]),
+    'addr': lambda a, b, registers: registers[a] + registers[b],
+    'addi': lambda a, b, registers: registers[a] + b,
+    'mulr': lambda a, b, registers: registers[a] * registers[b],
+    'muli': lambda a, b, registers: registers[a] * b,
+    'banr': lambda a, b, registers: registers[a] & registers[b],
+    'bani': lambda a, b, registers: registers[a] & b,
+    'borr': lambda a, b, registers: registers[a] | registers[b],
+    'bori': lambda a, b, registers: registers[a] | b,
+    'setr': lambda a, b, registers: registers[a],
+    'seti': lambda a, b, registers: a,
+    'gtir': lambda a, b, registers: int(a > registers[b]),
+    'gtri': lambda a, b, registers: int(registers[a] > b),
+    'gtrr': lambda a, b, registers: int(registers[a] > registers[b]),
+    'eqir': lambda a, b, registers: int(a == registers[b]),
+    'eqri': lambda a, b, registers: int(registers[a] == b),
+    'eqrr': lambda a, b, registers: int(registers[a] == registers[b]),
 }
 
 
@@ -48,7 +48,7 @@ def part1(data):
 
     for before, command, after in instructions:
         correct = 0
-        opcode, a, b, c = command
+        _opcode, a, b, c = command
         for func in functions.values():
             correct += after[c] == func(a, b, before)
         more_than_3 += correct >= 3

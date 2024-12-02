@@ -1,6 +1,4 @@
 import collections
-import itertools
-import math
 from time import sleep
 
 from intcode import Program
@@ -59,7 +57,7 @@ def part2(data, debug=False):
             if x == -1 and y == 0:
                 current_score = tile_id
             else:
-                tiles[(x, y)] = tile_id
+                tiles[x, y] = tile_id
 
                 if tile_id == 3:
                     position_pad = [x, y]
@@ -70,8 +68,8 @@ def part2(data, debug=False):
                     play = True
 
         if debug and show and position_ball and position_pad:
-            xs = [x for x, y in tiles.keys()]
-            ys = [y for x, y in tiles.keys()]
+            xs = [x for x, y in tiles]
+            ys = [y for x, y in tiles]
 
             rows = [f'{position_ball=} {position_pad=} {current_score=}'] + [
                 ''.join(
@@ -80,8 +78,8 @@ def part2(data, debug=False):
                 )
                 for y in range(min(ys), max(ys) + 1)
             ]
-            print("\n".join(rows))
-            print("\n")
+            print('\n'.join(rows))
+            print('\n')
             sleep(0.01)
             show = False
 
@@ -89,7 +87,6 @@ def part2(data, debug=False):
 
 
 if __name__ == '__main__':
-
     data = data_import('data/y2019/day13', cast=int, split_char=',')[0]
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data, debug=False))

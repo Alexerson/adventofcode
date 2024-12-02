@@ -1,7 +1,5 @@
 from collections import Counter
 
-from utils import data_import
-
 
 def valid1(num):
     i = str(num)

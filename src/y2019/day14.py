@@ -1,9 +1,4 @@
-import collections
-import itertools
 import math
-from time import sleep
-
-from intcode import Program
 
 from utils import data_import
 
@@ -15,7 +10,10 @@ class Reaction:
         self.after_kind = after[1]
 
     def __str__(self):
-        return f'Reaction {self.before} -> {self.after_quantity}, {self.after_kind}'
+        return (
+            f'Reaction {self.before} -> {self.after_quantity}, '
+            f'{self.after_kind}'
+        )
 
 
 def build_reactions(data):
@@ -32,7 +30,8 @@ def build_reactions(data):
         after_quantity, after_kind = after.strip().split(' ')
 
         reactions[after_kind.strip()] = Reaction(
-            before_list, (int(after_quantity), after_kind.strip())
+            before_list,
+            (int(after_quantity), after_kind.strip()),
         )
 
     return reactions
@@ -47,7 +46,7 @@ def compute_depths(reactions):
         reaction = reactions.pop(0)
 
         works = True
-        for quantity, kind in reaction.before:
+        for _quantity, kind in reaction.before:
             if kind not in depths:
                 works = False
                 break
@@ -66,12 +65,8 @@ def part1(data, fuel_quantity=1):
     depths.reverse()
 
     possessions = {'FUEL': fuel_quantity}
-    ore_count = 0
-
-    reactions_to_do = []
 
     for converted_kind in depths[:-1]:
-
         reaction = reactions.get(converted_kind)
 
         times = math.ceil(

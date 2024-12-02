@@ -1,3 +1,5 @@
+import contextlib
+import operator
 from itertools import permutations
 
 from intcode import Program
@@ -6,7 +8,6 @@ from utils import data_import
 
 
 def part1(data):
-
     outputs = {}
 
     for settings in permutations(range(5), 5):
@@ -15,7 +16,7 @@ def part1(data):
             inputs = [setting, input_]
             input_ = Program(data).run_until_output(inputs)
         outputs[settings] = input_
-    return max(outputs.items(), key=lambda a: a[1])
+    return max(outputs.items(), key=operator.itemgetter(1))
 
 
 def part2(data):
@@ -43,44 +44,48 @@ def part2(data):
                 program_e,
             ]
         ):
-
-            try:
+            with contextlib.suppress(IndexError):
                 inputs_b.append(program_a.run_until_output(inputs_a))
-            except IndexError:
-                pass
 
-            try:
+            with contextlib.suppress(IndexError):
                 inputs_c.append(program_b.run_until_output(inputs_b))
-            except IndexError:
-                pass
 
-            try:
+            with contextlib.suppress(IndexError):
                 inputs_d.append(program_c.run_until_output(inputs_c))
-            except IndexError:
-                pass
 
-            try:
+            with contextlib.suppress(IndexError):
                 inputs_e.append(program_d.run_until_output(inputs_d))
-            except IndexError:
-                pass
 
-            try:
+            with contextlib.suppress(IndexError):
                 inputs_a.append(program_e.run_until_output(inputs_e))
-            except IndexError:
-                pass
 
         outputs[settings] = inputs_a[-2]
 
-    return max(outputs.items(), key=lambda a: a[1])
+    return max(outputs.items(), key=operator.itemgetter(1))
 
 
 if __name__ == '__main__':
-
     print(
         'Solution of example 1 is',
-        part1(
-            [3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0]
-        ),
+        part1([
+            3,
+            15,
+            3,
+            16,
+            1002,
+            16,
+            10,
+            16,
+            1,
+            16,
+            15,
+            15,
+            4,
+            15,
+            99,
+            0,
+            0,
+        ]),
     )
     print(
         'Solution of example 2 is',
@@ -115,7 +120,7 @@ if __name__ == '__main__':
                 0,
                 0,
                 5,
-            ]
+            ],
         ),
     )
 

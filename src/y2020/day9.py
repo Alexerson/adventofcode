@@ -9,14 +9,15 @@ def part1(data: List[int], length: int = 25) -> int:
     considered_set = deque(data[:length])
 
     for number in data[length:]:
-        possible_sums = set(a + b for a, b in combinations(considered_set, 2))
+        possible_sums = {a + b for a, b in combinations(considered_set, 2)}
         if number not in possible_sums:
             return number
 
         considered_set.append(number)
         considered_set.popleft()
 
-    raise Exception('No solution')
+    msg = 'No solution'
+    raise Exception(msg)
 
 
 def part2(data: List[int], target: int) -> int:
@@ -26,14 +27,13 @@ def part2(data: List[int], target: int) -> int:
         max_value = value
         for value2 in data[i + 1 :]:
             current_sum += value2
-            if value2 > max_value:
-                max_value = value2
-            if value2 < min_value:
-                min_value = value2
+            max_value = max(value2, max_value)
+            min_value = min(value2, min_value)
             if current_sum == target:
                 return min_value + max_value
 
-    raise Exception('No solution')
+    msg = 'No solution'
+    raise Exception(msg)
 
 
 if __name__ == '__main__':

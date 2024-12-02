@@ -1,4 +1,3 @@
-import imageio
 from PIL import Image
 
 from utils import data_import
@@ -7,19 +6,18 @@ from utils import data_import
 def convert_data(data):
     clay = {}
     for x, y in data:
-
         if x[0] == 'x':
             column = int(x[2:])
             y = y[2:]
             line_min, line_max = y.split('..')
             for line in range(int(line_min), int(line_max) + 1):
-                clay[(column, line)] = True
+                clay[column, line] = True
         else:
             line = int(x[2:])
             y = y[2:]
             column_min, column_max = y.split('..')
             for column in range(int(column_min), int(column_max) + 1):
-                clay[(column, line)] = True
+                clay[column, line] = True
 
     return clay
 
@@ -29,9 +27,9 @@ def show_state(clay, water, candidates, filename=''):
     max_x = max(x for x, y in list(water.keys()) + list(clay.keys()))
     max_y = max(y for x, y in list(water.keys()) + list(clay.keys()))
 
-    canvas = Image.new("L", (max_x - min_x + 1, max_y + 1))
+    canvas = Image.new('L', (max_x - min_x + 1, max_y + 1))
 
-    for y in range(0, max_y + 1):
+    for y in range(max_y + 1):
         for x in range(min_x, max_x + 1):
             if (x, y) in candidates:
                 canvas.putpixel((x - min_x, y), 180)
@@ -55,17 +53,17 @@ STILL = 2
 
 
 def get_bounds(column, line, clay, water):
-    this_line = [(x, y) for x, y in clay.keys() if y == line]
+    this_line = [(x, y) for x, y in clay if y == line]
 
     try:
         left_bound = max(x for x, y in this_line if x < column)
         right_bound = min(x for x, y in this_line if x > column)
     except ValueError:
-        return
+        return None
 
     for x in range(left_bound, right_bound + 1):
         if not clay.get((x, line + 1)) and not water.get((x, line + 1)):
-            return
+            return None
 
     return (left_bound + 1, right_bound - 1)
 
@@ -75,13 +73,13 @@ def flow_one(candidate, clay, water, max_y):
 
     # Fill column
     try:
-        bottom_clay = min(y_ for x_, y_ in clay.keys() if x_ == x and y_ > y)
+        bottom_clay = min(y_ for x_, y_ in clay if x_ == x and y_ > y)
     except ValueError:
         bottom_clay = max_y + 1
     try:
         bottom_water = min(
             y_
-            for x_, y_ in water.keys()
+            for x_, y_ in water
             if x_ == x and y_ > y and water.get((x_, y_)) == STILL
         )
     except ValueError:
@@ -89,7 +87,7 @@ def flow_one(candidate, clay, water, max_y):
     bottom = min(bottom_clay, bottom_water)
     for y_ in range(y + 1, bottom):
         if (x, y_) not in water:
-            water[(x, y_)] = RUNNING
+            water[x, y_] = RUNNING
 
     if bottom != y + 1:
         return [(x, bottom - 1)]
@@ -103,7 +101,7 @@ def flow_one(candidate, clay, water, max_y):
     bounds = get_bounds(x, y, clay, water)
     if bounds:
         for x_ in range(bounds[0], bounds[1] + 1):
-            water[(x_, y)] = STILL
+            water[x_, y] = STILL
             if water.get((x_, y - 1)) == RUNNING:
                 candidates.append((x_, y - 1))
 
@@ -113,7 +111,7 @@ def flow_one(candidate, clay, water, max_y):
         while not clay.get((x_, y)) and (
             clay.get((x_ + 1, y + 1)) or water.get((x_ + 1, y + 1)) == STILL
         ):
-            water[(x_, y)] = RUNNING
+            water[x_, y] = RUNNING
             x_ -= 1
         if not clay.get((x_, y)):
             candidates.append((x_ + 1, y))
@@ -123,7 +121,7 @@ def flow_one(candidate, clay, water, max_y):
         while not clay.get((x_, y)) and (
             clay.get((x_ - 1, y + 1)) or water.get((x_ - 1, y + 1)) == STILL
         ):
-            water[(x_, y)] = RUNNING
+            water[x_, y] = RUNNING
             x_ += 1
         if not clay.get((x_, y)):
             candidates.append((x_ - 1, y))
@@ -135,10 +133,10 @@ def run_simulation(data, debug=False):
     clay = convert_data(data)
     water = {}
 
-    min_y = min(y for x, y in clay.keys())
-    max_y = max(y for x, y in clay.keys())
+    min_y = min(y for x, y in clay)
+    max_y = max(y for x, y in clay)
 
-    candidates = set([(500, min_y - 1)])
+    candidates = {(500, min_y - 1)}
 
     i = 0
     while candidates:
@@ -154,7 +152,7 @@ def run_simulation(data, debug=False):
                 clay,
                 water,
                 candidates,
-                'day17/image{}.png'.format(str(i).zfill(10)),
+                f'day17/image{str(i).zfill(10)}.png',
             )
 
     return clay, water

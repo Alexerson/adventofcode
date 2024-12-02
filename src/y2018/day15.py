@@ -1,15 +1,12 @@
 from collections import deque
 from time import sleep
 
-from colorama import Fore, Style
-
 from utils import data_import
 
 DEBUG = False
 
 
 def convert_to_coords(data):
-
     goblins = []
     elves = []
     elements = {}
@@ -17,15 +14,15 @@ def convert_to_coords(data):
     for i, line in enumerate(data):
         for j, cell in enumerate(line):
             if cell == '#':
-                elements[(i, j)] = '#'
+                elements[i, j] = '#'
 
             elif cell == 'G':
                 goblins.append([i, j, 200, 'G'])
-                elements[(i, j)] = 'G'
+                elements[i, j] = 'G'
 
             elif cell == 'E':
                 elves.append([i, j, 200, 'E'])
-                elements[(i, j)] = 'E'
+                elements[i, j] = 'E'
 
     return goblins, elves, elements
 
@@ -43,7 +40,6 @@ def find_closest_target(coords, target, elements):
 
     closest = None
     while len(to_visit) > 0:
-
         new_coords = to_visit.popleft()
 
         if elements.get(new_coords) == target:
@@ -54,7 +50,6 @@ def find_closest_target(coords, target, elements):
             continue
 
         for incr in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
-
             coords_ = (new_coords[0] + incr[0], new_coords[1] + incr[1])
             if coords_ not in previous_move:
                 previous_move[coords_] = new_coords
@@ -75,11 +70,8 @@ def find_closest_target(coords, target, elements):
 
 
 def move_once(fighter, elements):
-    if fighter[3] == 'E':
-        target = 'G'
-    else:
-        target = 'E'
-    closest, next_coords, distance = find_closest_target(
+    target = 'G' if fighter[3] == 'E' else 'E'
+    _closest, next_coords, distance = find_closest_target(
         fighter[:2], target, elements
     )
 
@@ -93,7 +85,7 @@ def move_once(fighter, elements):
 
     fighter[0] = next_coords[0]
     fighter[1] = next_coords[1]
-    elements[(fighter[0], fighter[1])] = old
+    elements[fighter[0], fighter[1]] = old
 
 
 def select_target(fighter, goblins, elves):
@@ -149,7 +141,7 @@ def play_one_round(goblins, elves, elements, elf_attack=3):
 
             # If the target died, remove him from the map
             if target[2] <= 0:
-                del elements[(target[0], target[1])]
+                del elements[target[0], target[1]]
 
     # After a round, remove dead fighters from the lists
     goblins = [goblin for goblin in goblins if goblin[2] > 0]
@@ -158,17 +150,17 @@ def play_one_round(goblins, elves, elements, elf_attack=3):
 
 
 def show_map(goblins, elves, elements):
-    max_line = max(coord[0] for coord in elements.keys())
-    max_column = max(coord[1] for coord in elements.keys())
+    max_line = max(coord[0] for coord in elements)
+    max_column = max(coord[1] for coord in elements)
 
-    print_match = {"#": "🧱", "G": "👺", 'E': '🧝', '.': '  '}
+    print_match = {'#': '🧱', 'G': '👺', 'E': '🧝', '.': '  '}
 
     for i in range(max_line + 1):
         print(
             ''.join(
                 print_match[elements.get((i, j), '.')]
                 for j in range(max_column + 1)
-            )
+            ),
         )
 
     print(len(goblins), 'goblins remaining:', [item[2] for item in goblins])
@@ -183,7 +175,10 @@ def part1(data, elf_attack=3, debug=False):
     round_ = 0
     while len(goblins) > 0 and len(elves) > 0:
         goblins, elves, elements, complete = play_one_round(
-            goblins, elves, elements, elf_attack
+            goblins,
+            elves,
+            elements,
+            elf_attack,
         )
         # We only want to count complete rounds!
         if complete:
@@ -208,7 +203,10 @@ def part2(data):
         round_ = 0
         while len(goblins) > 0 and len(elves) == elf_count:
             goblins, elves, elements, complete = play_one_round(
-                goblins, elves, elements, elf_attack=elf_attack
+                goblins,
+                elves,
+                elements,
+                elf_attack=elf_attack,
             )
             if complete:
                 round_ += 1

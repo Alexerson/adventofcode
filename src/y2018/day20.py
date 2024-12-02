@@ -1,10 +1,7 @@
-import sys
-
 from utils import data_import
 
 
 def build_tree(regexp):
-
     doors = {}
     current_positions = {(0, 0)}
     stack = []  # a stack keeping track of (starts, ends) for groups
@@ -17,11 +14,13 @@ def build_tree(regexp):
 
     for c in regexp:
         if c == '|':
-            # an alternate: update possible ending points, and restart the group
+            # an alternate: update possible ending points,
+            # and restart the group
             ends.update(current_positions)
             current_positions = starts
         elif c in 'NESW':
-            # move in a given direction: add all edges and update our current positions
+            # move in a given direction:
+            # add all edges and update our current positions
             direction = directions[c]
             next_positions = set()
             for position in current_positions:
@@ -39,7 +38,8 @@ def build_tree(regexp):
             stack.append((starts, ends))
             starts, ends = current_positions, set()
         elif c == ')':
-            # end of group: finish current group, add current positions as possible ends
+            # end of group: finish current group,
+            # add current positions as possible ends
             current_positions.update(ends)
             starts, ends = stack.pop()
 
@@ -56,8 +56,10 @@ def get_distances(doors):
 
         if position not in distances or distance < distances[position]:
             distances[position] = distance
-            for new_position in doors.get(position, []):
-                todo.add((new_position, distance + 1))
+            todo.update(
+                (new_position, distance + 1)
+                for new_position in doors.get(position, [])
+            )
 
     return distances
 

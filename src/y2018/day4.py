@@ -1,4 +1,4 @@
-import collections
+import operator
 from datetime import datetime, timedelta
 
 from utils import data_import
@@ -33,7 +33,7 @@ def most_asleep(data):
         time = sum((b - a for a, b in shifts), timedelta(0))
         time_asleep.append((guard_id, time))
 
-    return max(time_asleep, key=lambda a: a[1])[0]
+    return max(time_asleep, key=operator.itemgetter(1))[0]
 
 
 def most_slept_minute(shifts):
@@ -44,7 +44,7 @@ def most_slept_minute(shifts):
                 minutes[minute] = 0
             minutes[minute] += 1
 
-    return max(minutes.items(), key=lambda a: a[1])[0]
+    return max(minutes.items(), key=operator.itemgetter(1))[0]
 
 
 def part1(shifts):
@@ -58,12 +58,12 @@ def part2(data):
     for guard_id, shifts in data.items():
         for shift in shifts:
             for minute in range(shift[0].minute, shift[1].minute):
-                key = '{}-{}'.format(guard_id, minute)
+                key = f'{guard_id}-{minute}'
                 if key not in minutes:
                     minutes[key] = 0
                 minutes[key] += 1
 
-    max_key = max(minutes.items(), key=lambda a: a[1])[0]
+    max_key = max(minutes.items(), key=operator.itemgetter(1))[0]
     guard_id, minute = max_key.split('-')
     return (guard_id, minute, int(guard_id) * int(minute))
 

@@ -1,4 +1,4 @@
-class Program(object):
+class Program:
     def __init__(self, memory):
         self.memory = list(memory)
         self.memory += [0] * 10000
@@ -19,19 +19,19 @@ class Program(object):
             instruction = opcode % 100
             parameter_modes = opcode // 100
 
-            if instruction in (3, 4, 9):
+            if instruction in {3, 4, 9}:
                 params_count = 1
-            elif instruction in (5, 6):
+            elif instruction in {5, 6}:
                 params_count = 2
-            elif instruction in (1, 2, 7, 8):
+            elif instruction in {1, 2, 7, 8}:
                 params_count = 3
-            elif instruction in (99,):
+            elif instruction == 99:
                 params_count = 0
 
             params = [
                 (
                     memory[self.pointer + 1 + i],
-                    (parameter_modes // (10 ** i)) % 10,
+                    (parameter_modes // (10**i)) % 10,
                 )
                 for i in range(params_count)
             ]
@@ -45,7 +45,8 @@ class Program(object):
                 elif param[1] == 2:
                     values.append(memory[param[0] + self.relative_base])
                 else:
-                    raise ValueError('Wrong mode')
+                    msg = 'Wrong mode'
+                    raise ValueError(msg)
 
             if instruction == 1:
                 index_ = params[2][0]
@@ -93,10 +94,11 @@ class Program(object):
 
             elif instruction == 99:
                 self.finished = True
-                return
+                return None
 
             else:
-                raise ValueError("This should not happen")
+                msg = 'This should not happen'
+                raise ValueError(msg)
 
             self.pointer += 1 + params_count
 

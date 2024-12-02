@@ -1,4 +1,3 @@
-from functools import lru_cache
 from typing import Dict, List, Set, Tuple
 
 from adventofcode.utils import data_import
@@ -14,7 +13,6 @@ def convert_data(data: List[List[str]]) -> Dict[str, List[Tuple[int, str]]]:
         out[container] = []
 
         for content in contents.split(','):
-
             count, color = content.strip().split(' ', maxsplit=1)
 
             try:
@@ -34,11 +32,10 @@ def convert_data(data: List[List[str]]) -> Dict[str, List[Tuple[int, str]]]:
 
 
 def extract_tree(data: Dict[str, List[Tuple[int, str]]]) -> Dict[str, Set]:
-
     out: Dict[str, Set] = {}
 
     for key, value in data.items():
-        for count, color in value:
+        for _count, color in value:
             if color not in out:
                 out[color] = {key}
             else:
@@ -48,7 +45,6 @@ def extract_tree(data: Dict[str, List[Tuple[int, str]]]) -> Dict[str, Set]:
 
 
 def part1(tree: Dict[str, Set]) -> int:
-
     root = 'shiny gold'
 
     to_do = {root}
@@ -58,14 +54,12 @@ def part1(tree: Dict[str, Set]) -> int:
         item = to_do.pop()
         done.add(item)
 
-        for parent in tree.get(item) or []:
-            to_do.add(parent)
+        to_do.update(tree.get(item) or [])
 
     return len(done - {root})
 
 
 def part2_count(data: Dict[str, List[Tuple[int, str]]], root: str) -> int:
-
     out = 1
 
     for count, color in data[root]:

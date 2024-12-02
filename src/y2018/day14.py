@@ -1,11 +1,3 @@
-import collections
-from collections import deque
-
-import parse
-
-from utils import data_import
-
-
 def part1(rounds):
     elves_1 = 3
     elves_2 = 7
@@ -34,7 +26,7 @@ def part1(rounds):
         elves_1 = all_recipes[elves_1_index]
         elves_2 = all_recipes[elves_2_index]
 
-    return ''.join('{}'.format(i) for i in all_recipes[rounds : rounds + 10])
+    return ''.join(f'{i}' for i in all_recipes[rounds : rounds + 10])
 
 
 def part2(data):
@@ -72,7 +64,7 @@ def part2(data):
             data_list == all_recipes[-len_data:]
             or data_list == all_recipes[-len_data - 1 : -1]
         ):
-            return ''.join('{}'.format(i) for i in all_recipes).index(data)
+            return ''.join(f'{i}' for i in all_recipes).index(data)
 
 
 if __name__ == '__main__':
@@ -82,8 +74,8 @@ if __name__ == '__main__':
     print('Solution of 1 for example is', part1(2018))
     print('Solution of 1 for real is', part1(864801))
 
-    print('Solution of 2 for example is', part2("51589"))
-    print('Solution of 2 for example is', part2("01245"))
-    print('Solution of 2 for example is', part2("92510"))
-    print('Solution of 2 for example is', part2("59414"))
-    print('Solution of 2 for real is', part2("864801"))
+    print('Solution of 2 for example is', part2('51589'))
+    print('Solution of 2 for example is', part2('01245'))
+    print('Solution of 2 for example is', part2('92510'))
+    print('Solution of 2 for example is', part2('59414'))
+    print('Solution of 2 for real is', part2('864801'))

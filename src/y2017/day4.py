@@ -6,7 +6,7 @@ def is_valid(passphrase, anagram=False):
 
     for word in passphrase.split():
         if anagram:
-            word = ''.join(sorted(list(word)))
+            word = ''.join(sorted(word))
         if word in known:
             return False
         known.add(word)
@@ -22,6 +22,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day4')
+    data = data_import('data/y2017/day4')
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

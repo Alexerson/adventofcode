@@ -33,6 +33,7 @@ def part2(data):
                     if letter1 == letter2
                 )
                 return (word1, word2, combination)
+    return None
 
 
 if __name__ == '__main__':

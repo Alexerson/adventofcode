@@ -24,7 +24,6 @@ class Action(NamedTuple):
     value: int
 
     def apply(self, position: Position, with_aim: bool = False) -> None:
-
         match (self.verb, with_aim):
             case Verb.FORWARD, False:
                 position.x += self.value

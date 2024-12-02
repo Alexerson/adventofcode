@@ -2,15 +2,13 @@ from utils import data_import
 
 
 def part1(data):
-
     current = [0, 0]
     direction = 'right'
 
     max_x = 0
     max_y = 0
 
-    for i in range(1, data + 1):
-
+    for _i in range(1, data + 1):
         last = tuple(current)
 
         if direction == 'right':
@@ -39,7 +37,6 @@ def part1(data):
 
 
 def part2(data):
-
     position = {(0, 0): 1}
 
     current = [0, 0]
@@ -91,6 +88,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day3', int)[0]
+    data = data_import('data/y2017/day3', int)[0]
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

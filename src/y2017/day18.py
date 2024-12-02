@@ -12,13 +12,13 @@ def part1(data):
     while True:
         command = data[index]
 
-        if command[0] in ('snd', 'rcv', 'jgz'):
+        if command[0] in {'snd', 'rcv', 'jgz'}:
             try:
                 value1 = int(command[1])
             except ValueError:
                 value1 = registers.get(command[1], 0)
 
-        if command[0] in ('set', 'add', 'mul', 'mod', 'jgz'):
+        if command[0] in {'set', 'add', 'mul', 'mod', 'jgz'}:
             try:
                 value2 = int(command[2])
             except ValueError:
@@ -43,9 +43,8 @@ def part1(data):
             if value1 != 0:
                 return sound
 
-        elif command[0] == 'jgz':
-            if value1 > 0:
-                index += value2 - 1
+        elif command[0] == 'jgz' and value1 > 0:
+            index += value2 - 1
 
         index += 1
 
@@ -67,7 +66,6 @@ class Program:
         return self.queue.popleft()
 
     def run_until_blocked(self, other_program):
-
         self.started = True
         sent = 0
 
@@ -77,13 +75,13 @@ class Program:
             except IndexError:
                 return sent
 
-            if command[0] in ('snd', 'jgz'):
+            if command[0] in {'snd', 'jgz'}:
                 try:
                     value1 = int(command[1])
                 except ValueError:
                     value1 = self.registers.get(command[1], 0)
 
-            if command[0] in ('set', 'add', 'mul', 'mod', 'jgz'):
+            if command[0] in {'set', 'add', 'mul', 'mod', 'jgz'}:
                 try:
                     value2 = int(command[2])
                 except ValueError:

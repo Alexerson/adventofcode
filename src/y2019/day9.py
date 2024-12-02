@@ -12,7 +12,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-
     data = data_import('data/y2019/day9', cast=int, split_char=',')[0]
 
     print('Solution of 1 is', part1(data))

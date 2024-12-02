@@ -14,7 +14,7 @@ def rotate(drawing):
     size = len(lines)
     out = []
     for i in range(size):
-        line = ""
+        line = ''
         for j in range(size):
             line += lines[size - j - 1][i]
         out.append(line)
@@ -27,21 +27,18 @@ def slice_drawing(drawing):
 
     size = len(lines)
 
-    if size % 2 == 0:
-        subsize = 2
-    else:
-        subsize = 3
+    subsize = 2 if size % 2 == 0 else 3
 
     pieces = []
     for piece_y in range(size // subsize):
         for piece_x in range(size // subsize):
             piece = []
             for j in range(subsize):
-                for i in range(subsize):
-                    piece.append(
-                        lines[piece_y * subsize + j][piece_x * subsize + i]
-                    )
-                piece.append("/")
+                piece.extend(
+                    lines[piece_y * subsize + j][piece_x * subsize + i]
+                    for i in range(subsize)
+                )
+                piece.append('/')
             pieces.append(''.join(piece[:-1]))
     return pieces
 
@@ -52,11 +49,11 @@ def merge_drawing(pieces):
     line_index = 0
     col_index = 0
     for piece in pieces:
-        for index, line in enumerate(piece.split("/")):
+        for index, line in enumerate(piece.split('/')):
             out[index + line_index] += line
-        col_index += len(piece.split("/"))
+        col_index += len(piece.split('/'))
         if col_index >= size:
-            line_index += len(piece.split("/"))
+            line_index += len(piece.split('/'))
             col_index = 0
 
     return '/'.join(out)
@@ -100,12 +97,11 @@ def apply_rules(drawing, rules):
 
 
 def part1(data, iterations=5):
-
     rules = convert_data_to_rules(data)
 
     drawing = '.#./..#/###'
 
-    for iteration in range(iterations):
+    for _iteration in range(iterations):
         drawing = apply_rules(drawing, rules)
 
     return sum(bit == '#' for bit in drawing)
@@ -116,10 +112,10 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day21_example', str, True)
+    data = data_import('data/y2017/day21_example', str, True)
     print('Solution of 1 is', part1(data, 2))
     print('Solution of 2 is', part2(data))
 
-    data = data_import('2017/data/day21_real', str, True)
+    data = data_import('data/y2017/day21_real', str, True)
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

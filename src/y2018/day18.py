@@ -4,7 +4,6 @@ from utils import data_import
 
 
 def part1(data, nb_cycles=10, debug=False):
-
     known = {}
 
     iterations = 0
@@ -53,7 +52,7 @@ def part1(data, nb_cycles=10, debug=False):
                 '\n'.join(data)
                 .replace('.', '  ')
                 .replace('#', '🌱')
-                .replace('|', '🌳')
+                .replace('|', '🌳'),
             )
             print()
 

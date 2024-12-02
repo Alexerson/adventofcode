@@ -1,12 +1,9 @@
-import collections
-
 from utils import data_import
 
 
 # We use a recursive algorithm to extract metadata
 def find_metadata(data):
-    '''Take a full dataset in input and extract the metadata'''
-
+    """Take a full dataset in input and extract the metadata"""
     # First, we extract what we can from the data we have
     children_count = data[0]
     metadata_count = data[1]
@@ -16,7 +13,7 @@ def find_metadata(data):
     metadatas = []
 
     # We extract each children recursively.
-    for i in range(children_count):
+    for _i in range(children_count):
         metadata, data = find_metadata(data)
         metadatas += metadata
 
@@ -43,7 +40,7 @@ def find_metadata_and_score(data):
     metadatas = []
     scores = []
 
-    for i in range(children_count):
+    for _i in range(children_count):
         metadata, score, data = find_metadata_and_score(data)
         metadatas += metadata
         scores.append(score)  # We store the score for each child

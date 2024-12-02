@@ -1,3 +1,5 @@
+import operator
+
 from utils import data_import
 
 
@@ -6,18 +8,17 @@ def is_reverse_polarity(a, b):
 
 
 def remove_once(data):
-    set_chars = set(list(data.lower()))
+    set_chars = set(data.lower())
 
     for char in set_chars:
-        data = data.replace('{}{}'.format(char, char.upper()), '')
-        data = data.replace('{}{}'.format(char.upper(), char), '')
+        data = data.replace(f'{char}{char.upper()}', '')
+        data = data.replace(f'{char.upper()}{char}', '')
 
     return data
 
 
 # This is my first implementation, it's in O(n^2)
 def part1_naive(data):
-
     len_before = len(data)
     len_after = 0
 
@@ -31,7 +32,6 @@ def part1_naive(data):
 
 # This is Fred's algorithm, it's way faster! O(n)
 def part1(data):
-
     index = 0
     while index < len(data) - 1:
         if is_reverse_polarity(data[index], data[index + 1]):
@@ -49,15 +49,14 @@ def part2(data):
     data = part1(data)  # We can use the already reduced version
     # to avoid unnecessary computations
 
-    set_chars = set(list(data.lower()))
+    set_chars = set(data.lower())
     results = []
 
     for char in set_chars:
-
         reduced_data = data.replace(char, '').replace(char.upper(), '')
         result = len(part1(reduced_data))
         results.append((char, result))
-    return min(results, key=lambda a: a[1])
+    return min(results, key=operator.itemgetter(1))
 
 
 if __name__ == '__main__':

@@ -15,13 +15,13 @@ class Direction(Enum):
     R = 'R'
 
     def get_left(self, angle):
-        if self in (self.F, self.L, self.R):
+        if self in {self.F, self.L, self.R}:
             return None
 
         return Direction((self.value - angle) % 360)
 
     def get_right(self, angle):
-        if self in (self.F, self.L, self.R):
+        if self in {self.F, self.L, self.R}:
             return None
 
         return Direction((self.value + angle) % 360)

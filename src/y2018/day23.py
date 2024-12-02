@@ -1,19 +1,18 @@
 import math
+import operator
 import random
 
 from utils import data_import
 
 
 def convert_to_nanobots(data):
-    bots = []
-    for line in data:
-        bots.append(
-            (
-                (int(line[0][5:]), int(line[1]), int(line[2][:-1])),
-                int(line[3].split("=")[1]),
-            )
+    return [
+        (
+            (int(line[0][5:]), int(line[1]), int(line[2][:-1])),
+            int(line[3].split('=')[1]),
         )
-    return bots
+        for line in data
+    ]
 
 
 def distance(a, b):
@@ -23,7 +22,7 @@ def distance(a, b):
 def part1(data):
     bots = convert_to_nanobots(data)
 
-    bots.sort(key=lambda a: a[1], reverse=True)
+    bots.sort(key=operator.itemgetter(1), reverse=True)
 
     largest = bots[0]
 
@@ -64,7 +63,7 @@ def part2(data, position=None):
                 (1, 0, 0),
                 (0, 0, 1),
                 (0, 0, -1),
-            ]
+            ],
         )
         step = int(random.random() * 1000000) + 1
         new_position = (
@@ -90,10 +89,9 @@ def part2(data, position=None):
                 stalled = -1
             position = new_position
             maximum = new_value
-        else:
-            if random.random() < math.exp(-delta_e / temperature):
-                maximum = new_value
-                position = new_position
+        elif random.random() < math.exp(-delta_e / temperature):
+            maximum = new_value
+            position = new_position
 
         stalled += 1
 
@@ -155,11 +153,10 @@ def part2_alt(data):
 
         if dist == 1:
             break
-        else:
-            xs = [best[0] - dist, best[0] + dist]
-            ys = [best[1] - dist, best[1] + dist]
-            zs = [best[2] - dist, best[2] + dist]
-            dist //= 2
+        xs = [best[0] - dist, best[0] + dist]
+        ys = [best[1] - dist, best[1] + dist]
+        zs = [best[2] - dist, best[2] + dist]
+        dist //= 2
     return best_val
 
 
@@ -179,4 +176,5 @@ if __name__ == '__main__':
 # 43931045
 # 43899897
 
-# (909, -43028803) (18135641, 10669199, 14223963) 53090.554295511276 (38, -144354645) (48092285, 29460935, -66801425)
+# (909, -43028803) (18135641, 10669199, 14223963) 53090.554295511276
+# (38, -144354645) (48092285, 29460935, -66801425)

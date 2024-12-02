@@ -6,11 +6,10 @@ def convert(data: list[str]) -> list[tuple[list[str], list[str]]]:
 
 
 def part1(data: list[tuple[list[str], list[str]]]) -> int:
-
     outputs = [output for _, output in data]
 
     return sum(
-        len(item) in (2, 3, 4, 7) for signal in outputs for item in signal
+        len(item) in {2, 3, 4, 7} for signal in outputs for item in signal
     )
 
 
@@ -18,7 +17,7 @@ def rewire(inputs: list[str]) -> dict[str, int]:
     wires = {}
     wires_reverse = {}
     for input in inputs:
-        hash = "".join(sorted(set(input)))
+        hash = ''.join(sorted(set(input)))
         if len(input) == 2:
             wires[hash] = 1
         elif len(input) == 7:
@@ -32,7 +31,7 @@ def rewire(inputs: list[str]) -> dict[str, int]:
         wires_reverse[wires[hash]] = set(input)
 
     for input in inputs:
-        hash = "".join(sorted(set(input)))
+        hash = ''.join(sorted(set(input)))
         if hash in wires:
             continue
 
@@ -54,7 +53,7 @@ def rewire(inputs: list[str]) -> dict[str, int]:
                 wires_reverse[2] = set(input)
 
     for input in inputs:
-        hash = "".join(sorted(set(input)))
+        hash = ''.join(sorted(set(input)))
         if hash in wires:
             continue
 
@@ -79,12 +78,11 @@ def rewire(inputs: list[str]) -> dict[str, int]:
 
 def decode(output: list[str], wires: dict[str, int]) -> int:
     return int(
-        ''.join(str(wires["".join(sorted(set(digit)))]) for digit in output)
+        ''.join(str(wires[''.join(sorted(set(digit)))]) for digit in output)
     )
 
 
 def part2(data: list[tuple[list[str], list[str]]]) -> int:
-
     out = []
     for input, output in data:
         wires = rewire(input)

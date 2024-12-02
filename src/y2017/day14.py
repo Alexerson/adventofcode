@@ -1,25 +1,23 @@
-from utils import data_import
 from y2017.day10 import part2 as knot_hash
-from y2017.day10_alt import solve2 as knot_hash_alt
 
 
 def part1(data):
     output = []
     for i in range(128):
-        input_ = '{}-{}'.format(data, i)
+        input_ = f'{data}-{i}'
 
-        binary_hash = bin(int(knot_hash(input_), 16))[2:]
+        binary_hash = f'{int(knot_hash(input_), 16):b}'
 
         output.append(binary_hash.zfill(128))
     return sum(d == '1' for line in output for d in line)
 
 
 def find_region(coord, output):
-    to_visit = set([coord])
+    to_visit = {coord}
     visited = set()
     match = set()
 
-    while len(to_visit):
+    while to_visit:
         cell = to_visit.pop()
 
         visited.add(cell)
@@ -47,9 +45,9 @@ def find_region(coord, output):
 def part2(data):
     output = []
     for i in range(128):
-        input_ = '{}-{}'.format(data, i)
+        input_ = f'{data}-{i}'
 
-        binary_hash = bin(int(knot_hash(input_), 16))[2:].zfill(128)
+        binary_hash = f'{int(knot_hash(input_), 16):b}'
         output.append([d == '1' for d in binary_hash.zfill(128)])
 
     regions = {}
@@ -58,12 +56,12 @@ def part2(data):
 
     for line_i, line in enumerate(output):
         for column_i, cell in enumerate(line):
-            if cell and (line_i, column_i) not in regions.keys():
+            if cell and (line_i, column_i) not in regions:
                 region = find_region((line_i, column_i), output)
                 region_count += 1
 
                 for i, j in region:
-                    regions[(i, j)] = region_count
+                    regions[i, j] = region_count
 
     return region_count
 

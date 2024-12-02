@@ -1,6 +1,4 @@
 import itertools
-from math import lcm
-from typing import List, Literal, Tuple, Union
 
 from adventofcode.utils import data_import
 
@@ -13,11 +11,10 @@ def apply_mask_v1(mask, value):
 
 
 def apply_mask_v2(mask, value):
-
     binary = format(value, 'b').rjust(36, '0')
 
     result = ''.join(
-        mask_char == '1' and '1' or mask_char == 'X' and 'X' or char
+        (mask_char == '1' and '1') or (mask_char == 'X' and 'X') or char
         for char, mask_char in zip(binary, mask)
     )
 

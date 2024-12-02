@@ -1,12 +1,13 @@
 import collections
+
 from utils import data_import
 
-def part1(list1: list[int], list2: list[int]) -> int:
 
+def part1(list1: list[int], list2: list[int]) -> int:
     list1 = sorted(list1)
     list2 = sorted(list2)
 
-    return sum(abs(a-b) for a, b in zip(list1, list2))
+    return sum(abs(a - b) for a, b in zip(list1, list2))
 
 
 def part2(list1: list[int], list2: list[int]) -> int:
@@ -17,9 +18,8 @@ def part2(list1: list[int], list2: list[int]) -> int:
     return total
 
 
-
 if __name__ == '__main__':
-    mydata = data_import('data/y2024/day1', int,split_char=" ")
+    mydata = data_import('data/y2024/day1', int, split_char=' ')
     list1, list2 = zip(*mydata)
     list1 = list(list1)
     list2 = list(list2)

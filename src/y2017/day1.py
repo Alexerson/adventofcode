@@ -16,7 +16,7 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day1')
+    data = data_import('data/y2017/day1')
     data = [int(d) for d in data[0]]
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

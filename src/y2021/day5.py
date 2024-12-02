@@ -10,7 +10,8 @@ class Line(NamedTuple):
     y2: int
 
     def crossed(
-        self, consider_only_horizontal_or_vertical: bool = False
+        self,
+        consider_only_horizontal_or_vertical: bool = False,
     ) -> list[tuple[int, int]]:
         if self.x1 == self.x2:
             x = self.x1

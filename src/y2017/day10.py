@@ -7,7 +7,7 @@ def part1(data, count=255, rounds=1):
     skip_size = 0
     current_position = 0
 
-    for length in data * rounds:
+    for skip_size, length in enumerate(data * rounds):
         end_position = current_position + length
 
         if end_position > count:
@@ -27,8 +27,6 @@ def part1(data, count=255, rounds=1):
 
         current_position = (current_position + skip_size + length) % count
 
-        skip_size += 1
-
     return cord
 
 
@@ -36,7 +34,7 @@ def xor(data):
     result = data[0]
 
     for item in data[1:]:
-        result = result ^ item
+        result ^= item
 
     return result
 
@@ -47,19 +45,19 @@ def part2(data, count=256, rounds=64):
 
     out = ''
     for i in range(16):
-        out += hex(xor(sparse_hash[i * 16 : (i + 1) * 16]))[2:]
+        out += f'{xor(sparse_hash[i * 16 : (i + 1) * 16]):02x}'
 
     return out
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day10_example', int, ',')[0]
+    data = data_import('data/y2017/day10_example', int, ',')[0]
     print('Example:')
     print('Solution of 1 is', part1(data, 5))
     print('Solution of 2 is', part2(data, 5))
 
     print('Real:')
-    data = data_import('2017/data/day10_real', int, ',')[0]
+    data = data_import('data/y2017/day10_real', int, ',')[0]
     data_ints = [int(item) for item in data.split(',')]
     hash = part1(data_ints, 256)
     print('Solution of 1 is', hash[0] * hash[1])

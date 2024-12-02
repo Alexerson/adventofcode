@@ -1,18 +1,13 @@
 import collections
 import itertools
-import math
 from functools import lru_cache
-
-from intcode import Program
-
-from utils import data_import
 
 
 @lru_cache
 def get_prime_factors(number):
     for i in range(2, number):
         if number % i == 0:
-            return [i] + get_prime_factors(number // i)
+            return [i, *get_prime_factors(number // i)]
 
     return [number]
 
@@ -30,14 +25,13 @@ def lcm(*numbers):
     number = 1
 
     for value, count in factors.items():
-        number *= value ** count
+        number *= value**count
 
     return number
 
 
-class Moon(object):
+class Moon:
     def __init__(self, label, x, y, z):
-
         self.label = label
 
         self.x = x
@@ -58,15 +52,17 @@ class Moon(object):
         return self.get_potential_energy() * self.get_kinetic_energy()
 
     def __str__(self):
-        return f'Moon {self.label} <{self.x}, {self.y}, {self.z}> <{self.vx}, {self.vy}, {self.vz}>'
+        return (
+            f'Moon {self.label} <{self.x}, {self.y}, {self.z}> '
+            f'<{self.vx}, {self.vy}, {self.vz}>'
+        )
 
     def get_status(self):
         return (self.x, self.y, self.z, self.vx, self.vy, self.vz)
 
 
 def part1(moons, steps=1000):
-
-    for step in range(steps):
+    for _step in range(steps):
         for moon1, moon2 in itertools.combinations(moons, 2):
             if moon1.x > moon2.x:
                 moon1.vx -= 1
@@ -98,7 +94,6 @@ def part1(moons, steps=1000):
 
 
 def part2(moons):
-
     step = 0
     positions_x = sum(((moon.x, moon.vx) for moon in moons), start=())
     positions_y = sum(((moon.y, moon.vy) for moon in moons), start=())
@@ -140,8 +135,6 @@ def part2(moons):
             moon.y += moon.vy
             moon.z += moon.vz
 
-            status = moon.get_status()
-
         positions_x = sum(((moon.x, moon.vx) for moon in moons), start=())
         positions_y = sum(((moon.y, moon.vy) for moon in moons), start=())
         positions_z = sum(((moon.z, moon.vz) for moon in moons), start=())
@@ -163,7 +156,6 @@ def part2(moons):
 
 
 if __name__ == '__main__':
-
     moons = [
         Moon(1, -1, 0, 2),
         Moon(2, 2, -10, -7),

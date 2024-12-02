@@ -1,6 +1,3 @@
-import collections
-import itertools
-import math
 from time import sleep
 
 from intcode import Program
@@ -9,19 +6,18 @@ from utils import data_import
 
 
 def display_image(image):
-
     image = image.copy()
 
     out = ['\nimage:']
 
-    xs = [x for x, y in image.keys()]
-    ys = [y for x, y in image.keys()]
+    xs = [x for x, y in image]
+    ys = [y for x, y in image]
 
     out.append(
         '\n'.join(
-            ''.join(image[(x, y)] for x in range(min(xs), max(xs) + 1))
+            ''.join(image[x, y] for x in range(min(xs), max(xs) + 1))
             for y in range(min(ys), max(ys) + 1)
-        )
+        ),
     )
     print('\n'.join(out))
     sleep(0.05)
@@ -56,12 +52,11 @@ def convert_stream_into_image(stream):
 
 
 def part1(data, debug=False):
-
     stream = explore_space(data)
     image = convert_stream_into_image(stream)
 
-    xs = [x for x, y in image.keys()]
-    ys = [y for x, y in image.keys()]
+    xs = [x for x, y in image]
+    ys = [y for x, y in image]
 
     cols = max(xs)
     rows = max(ys)
@@ -112,7 +107,8 @@ def find_next_move(image, position, direction):
         turn = 'R'
         incr = (right[0] - position[0], right[1] - position[1])
     else:
-        raise ValueError('EOL')
+        msg = 'EOL'
+        raise ValueError(msg)
 
     times = 1
     current = position[0] + incr[0], position[1] + incr[1]
@@ -128,11 +124,11 @@ def part2(data, debug=False):
     stream = explore_space(data)
     image = convert_stream_into_image(stream)
 
-    position = [
+    position = next(
         (x, y)
         for (x, y), pixel in image.items()
-        if pixel in ('^', '>', '<', 'v')
-    ][0]
+        if pixel in {'^', '>', '<', 'v'}
+    )
     direction = image[position]
 
     moves = []
@@ -172,8 +168,7 @@ def part2(data, debug=False):
                 direction = '<'
                 position = (position[0] - duration, position[1])
 
-        moves.append(turn)
-        moves.append(duration)
+        moves.extend((turn, duration))
 
     # moves =
     # A A C B C B C B C A
@@ -193,9 +188,7 @@ def part2(data, debug=False):
 
     inputs = [
         ord(a)
-        for a in '\n'.join(
-            [main_routine, function_a, function_b, function_c, 'n']
-        )
+        for a in f'{main_routine}\n{function_a}\n{function_b}\n{function_c}\nn'
         + '\n'
     ]
     outputs = []

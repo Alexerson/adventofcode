@@ -1,9 +1,10 @@
+import string
 from typing import Any, Dict, List
 
 
 def data_import(filename):
     data = []
-    with open(filename) as file:
+    with open(filename, encoding='utf-8') as file:
         line = file.readline()
 
         item = []
@@ -13,7 +14,7 @@ def data_import(filename):
             if line == '':
                 data.append(dict(sorted(item)))
                 item = []
-            for keyvalue in line.split(" "):
+            for keyvalue in line.split(' '):
                 if ':' in keyvalue:
                     key, value = keyvalue.split(':')
                     item.append((key, value))
@@ -22,14 +23,14 @@ def data_import(filename):
         data.append(dict(sorted(item)))
 
     keys = [
-        "byr",
-        "iyr",
-        "eyr",
-        "hgt",
-        "hcl",
-        "ecl",
-        "pid",
-        "cid",
+        'byr',
+        'iyr',
+        'eyr',
+        'hgt',
+        'hcl',
+        'ecl',
+        'pid',
+        'cid',
     ]
 
     for key in keys[::-1]:
@@ -40,13 +41,13 @@ def data_import(filename):
 
 def part1(data: List[Dict[str, Any]]):
     needed_keys = {
-        "byr",
-        "iyr",
-        "eyr",
-        "hgt",
-        "hcl",
-        "ecl",
-        "pid",
+        'byr',
+        'iyr',
+        'eyr',
+        'hgt',
+        'hcl',
+        'ecl',
+        'pid',
         # "cid",
     }
 
@@ -134,7 +135,7 @@ def is_valid_hcl(item):
     if hcl[0] != '#':
         return False
 
-    return all(char in set("0123456789abcdef") for char in hcl[1:])
+    return all(char in set('0123456789abcdef') for char in hcl[1:])
 
 
 def is_valid_ecl(item):
@@ -143,7 +144,7 @@ def is_valid_ecl(item):
     except KeyError:
         return False
 
-    return ecl in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}
+    return ecl in {'amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'}
 
 
 def is_valid_pid(item):
@@ -153,11 +154,10 @@ def is_valid_pid(item):
         return False
     if len(pid) != 9:
         return False
-    return all(item in set("0123456789") for item in pid)
+    return all(item in set(string.digits) for item in pid)
 
 
 def part2(data: List[Dict[str, Any]]):
-
     validations = [
         is_valid_byr,
         is_valid_iyr,
@@ -168,12 +168,11 @@ def part2(data: List[Dict[str, Any]]):
         is_valid_pid,
     ]
 
-    valid = []
-
-    for item in data:
-
-        if all(validation(item) for validation in validations):
-            valid.append(item)
+    valid = [
+        item
+        for item in data
+        if all(validation(item) for validation in validations)
+    ]
 
     return len(valid)
 

@@ -1,7 +1,3 @@
-import parse
-
-from utils import data_import
-
 grid = {}
 
 
@@ -30,26 +26,26 @@ def part1(serial, size=3, grid=None):
         for y in range(1, 302 - size):
             if (x - 1, y) in powers:
                 power = (
-                    powers[(x - 1, y)]
+                    powers[x - 1, y]
                     - sum(grid[x - 1, y + j] for j in range(size))
                     + sum(grid[x + size - 1, y + j] for j in range(size))
                 )
 
             elif (x, y - 1) in powers:
                 power = (
-                    powers[(x, y - 1)]
+                    powers[x, y - 1]
                     - sum(grid[x + i, y - 1] for i in range(size))
                     + sum(grid[x + i, y + size - 1] for i in range(size))
                 )
 
             else:
                 power = sum(
-                    grid[(x + i, y + j)]
+                    grid[x + i, y + j]
                     for i in range(size)
                     for j in range(size)
                 )
 
-            powers[(x, y)] = power
+            powers[x, y] = power
             if power > max_level:
                 max_level = power
                 coordinates = (x, y)

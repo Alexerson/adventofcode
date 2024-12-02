@@ -1,5 +1,3 @@
-import parse
-
 from utils import data_import
 
 
@@ -7,9 +5,9 @@ def convert_rules(data):
     rules = {}
 
     for rule in data:
-        key, value = rule.split("=>")
+        key, value = rule.split('=>')
         key = tuple(b == '#' for b in key.strip())
-        rules[key] = value.strip() == "#"
+        rules[key] = value.strip() == '#'
 
     return rules
 
@@ -21,7 +19,6 @@ def evolve(pots, rules):
     new_pots = set()
 
     for pot in range(min_index - 2, max_index + 3):
-
         neighborhood = tuple(
             (pot + neighbor) in pots for neighbor in range(-2, 3)
         )
@@ -33,11 +30,10 @@ def evolve(pots, rules):
 
 
 def part1(data_input, data_rules, iterations=20):
-
     rules = convert_rules(data_rules)
-    pots = set(index for index, value in enumerate(data_input) if value == "#")
+    pots = {index for index, value in enumerate(data_input) if value == '#'}
 
-    for i in range(iterations):
+    for _i in range(iterations):
         pots = evolve(pots, rules)
 
     return sum(pots)

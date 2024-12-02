@@ -4,9 +4,8 @@ def build_cave(depth, target, max_size=None):
     if max_size is None:
         max_size = target
 
-    for i in range(0, max_size[0] + 1):
-        for j in range(0, max_size[1] + 1):
-
+    for i in range(max_size[0] + 1):
+        for j in range(max_size[1] + 1):
             if i == target[0] and j == target[1]:
                 cave[i, j] = {'index': 0}
 
@@ -18,7 +17,7 @@ def build_cave(depth, target, max_size=None):
 
             else:
                 cave[i, j] = {
-                    'index': cave[i - 1, j]['level'] * cave[i, j - 1]['level']
+                    'index': cave[i - 1, j]['level'] * cave[i, j - 1]['level'],
                 }
 
             cave[i, j]['level'] = (cave[i, j]['index'] + depth) % 20183
@@ -28,7 +27,6 @@ def build_cave(depth, target, max_size=None):
 
 
 def part1(depth, target):
-
     cave = build_cave(depth, target)
     return sum(
         cave[i, j]['erosion']
@@ -41,9 +39,9 @@ elts = {0: '.', 1: '=', 2: '|'}
 
 
 def show_cave(cave, target):
-    for j in range(0, target[0] + 1):
+    for j in range(target[0] + 1):
         line = ''
-        for i in range(0, target[1] + 1):
+        for i in range(target[1] + 1):
             line += elts[cave[i, j]['erosion']]
         print(line)
 
@@ -64,7 +62,6 @@ ALLOWED_TOOLS = {
 
 
 def part2(depth, target):
-
     if target[0] > target[1]:
         max_size = (target[0] * 2, target[1] * 5)
     else:
@@ -102,20 +99,13 @@ def part2(depth, target):
                 todo.add(((cell[0] + i, cell[1] + j, tool), distance + 1))
 
         if cave[cell[:2]] == ROCKY:
-            if tool == TORCH:
-                tool = CLIMB
-            else:
-                tool = TORCH
+            tool = CLIMB if tool == TORCH else TORCH
         elif cave[cell[:2]] == WET:
-            if tool == CLIMB:
-                tool = NEITHER
-            else:
-                tool = CLIMB
+            tool = NEITHER if tool == CLIMB else CLIMB
+        elif tool == TORCH:
+            tool = NEITHER
         else:
-            if tool == TORCH:
-                tool = NEITHER
-            else:
-                tool = TORCH
+            tool = TORCH
 
         todo.add(((cell[0], cell[1], tool), distance + 7))
 

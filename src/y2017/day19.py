@@ -1,5 +1,3 @@
-from collections import deque
-
 from utils import data_import
 
 STRAIGHT = 1
@@ -17,14 +15,14 @@ def convert(data):
             if line_no == 0:
                 start = [line_no, column_no]
 
-            if cell in ('|', '-'):
-                output[(line_no, column_no)] = STRAIGHT
+            if cell in {'|', '-'}:
+                output[line_no, column_no] = STRAIGHT
 
             elif cell == '+':
-                output[(line_no, column_no)] = TURN
+                output[line_no, column_no] = TURN
 
             else:
-                output[(line_no, column_no)] = cell
+                output[line_no, column_no] = cell
 
     return start, output
 
@@ -45,11 +43,10 @@ def part1(data):
                     direction = (1, 0)
                 else:
                     direction = (-1, 0)
+            elif (position[0], position[1] + 1) in plan:
+                direction = (0, 1)
             else:
-                if (position[0], position[1] + 1) in plan:
-                    direction = (0, 1)
-                else:
-                    direction = (0, -1)
+                direction = (0, -1)
         elif current != STRAIGHT:
             met.append(current)
 

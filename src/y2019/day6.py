@@ -1,4 +1,3 @@
-import collections
 from functools import lru_cache
 
 from utils import data_import
@@ -25,7 +24,7 @@ def depth(item, tree):
 
 def part1(data):
     tree = convert(data)
-    return sum(depth(item, tree) for item in tree.keys())
+    return sum(depth(item, tree) for item in tree)
 
 
 def part2(data):

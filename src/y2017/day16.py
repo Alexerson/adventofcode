@@ -5,7 +5,6 @@ from utils import data_import
 
 
 def part1(data, length=16, line=None):
-
     if line is None:
         line = deque(ascii_lowercase[:length])
 
@@ -14,13 +13,13 @@ def part1(data, length=16, line=None):
             line.rotate(int(move[1:]))
 
         if move[0] == 'x':
-            pos1, pos2 = move[1:].split("/")
+            pos1, pos2 = move[1:].split('/')
             pos1 = int(pos1)
             pos2 = int(pos2)
             line[pos1], line[pos2] = line[pos2], line[pos1]
 
         if move[0] == 'p':
-            prog1, prog2 = move[1:].split("/")
+            prog1, prog2 = move[1:].split('/')
             pos1 = line.index(prog1)
             pos2 = line.index(prog2)
             line[pos1], line[pos2] = line[pos2], line[pos1]

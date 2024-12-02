@@ -1,7 +1,5 @@
 from collections import deque
 
-from utils import data_import
-
 
 def part1(steps, max_range=2017):
     spinlock = deque([0])

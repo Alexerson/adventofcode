@@ -2,12 +2,9 @@ from utils import data_import
 
 
 def build_layers(data, width, height):
-
     layers = []
     for _ in range(len(data) // (width * height)):
-        layer = []
-        for _ in range(height):
-            layer.append([])
+        layer = [[] for _ in range(height)]
         layers.append(layer)
 
     for index, value in enumerate(data):
@@ -32,15 +29,14 @@ def merge_pixels(values):
     for value in values:
         if value != '2':
             return value
+    return None
 
 
 def merge_layers(layers):
     height = len(layers[0])
     width = len(layers[0][0])
 
-    image = []
-    for _ in range(height):
-        image.append([])
+    image = [[] for _ in range(height)]
 
     for y in range(height):
         for x in range(width):

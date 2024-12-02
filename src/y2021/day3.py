@@ -12,8 +12,8 @@ def part1(data: list[str]) -> int:
             if char == '1':
                 counts1[index] += 1
 
-    gamma = ""
-    epsilon = ""
+    gamma = ''
+    epsilon = ''
 
     for c0, c1 in zip(counts0, counts1):
         if c0 > c1:
@@ -32,20 +32,15 @@ def rating(data: list[str], majority=True) -> str:
     candidates = data
 
     for bit in range(bits):
-
         zeros = [item for item in candidates if item[bit] == '0']
         ones = [item for item in candidates if item[bit] == '1']
 
         if majority:
-            if len(zeros) > len(ones):
-                candidates = zeros
-            else:
-                candidates = ones
+            candidates = zeros if len(zeros) > len(ones) else ones
+        elif len(zeros) <= len(ones):
+            candidates = zeros
         else:
-            if len(zeros) <= len(ones):
-                candidates = zeros
-            else:
-                candidates = ones
+            candidates = ones
 
         if len(candidates) == 1:
             return candidates[0]

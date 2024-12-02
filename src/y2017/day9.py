@@ -51,5 +51,5 @@ if __name__ == '__main__':
     print('Real:')
     data = data_import('data/day9_real', str)
     data = ''.join(data[0])
-    print('Solution of 1 is', part1(data))
-    print('Solution of 2 is', part2(data))
+    print('Solution of 1 is', part1(data)[0])
+    print('Solution of 2 is', part1(data)[1])

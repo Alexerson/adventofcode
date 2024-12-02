@@ -9,7 +9,6 @@ def convert_data(data: List[List[str]]) -> List[Tuple[str, int]]:
 
 
 def run_program(data: List[Tuple[str, int]]) -> Tuple[bool, int]:
-
     data_len = len(data)
 
     accumulator = 0
@@ -44,7 +43,6 @@ def part1(data) -> int:
 
 
 def part2(data) -> int:
-
     for index, (ope, value) in enumerate(data):
         if ope == 'acc':
             continue
@@ -61,7 +59,8 @@ def part2(data) -> int:
         if finished:
             return result
 
-    raise Exception('No finish')
+    msg = 'No finish'
+    raise Exception(msg)
 
 
 if __name__ == '__main__':

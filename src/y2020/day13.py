@@ -1,3 +1,4 @@
+import operator
 from math import lcm
 from typing import List, Literal, Tuple, Union
 
@@ -25,13 +26,12 @@ def part1(data: Tuple[int, List[Union[Literal['x'], int]]]) -> int:
 
         next_departs.append((bus_id, bus_id - (timestamp % bus_id)))
 
-    next_departs = sorted(next_departs, key=lambda a: a[1])
+    next_departs = sorted(next_departs, key=operator.itemgetter(1))
 
     return next_departs[0][0] * next_departs[0][1]
 
 
 def part2(data) -> int:
-
     timestamp = 0
 
     corrects = set()

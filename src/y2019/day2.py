@@ -22,6 +22,7 @@ def part2(data, output):
             program.run_until_output()
             if program.memory[0] == output:
                 return noun * 100 + verb
+    return None
 
 
 if __name__ == '__main__':

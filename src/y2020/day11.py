@@ -9,7 +9,7 @@ class Room:
     ncol: int
     nrow: int
 
-    def __init__(self, data: List[str]):
+    def __init__(self, data: List[str]) -> None:
         self.seats: Dict[Tuple[int, int], bool] = {}
 
         self.nrow = len(data)
@@ -20,7 +20,7 @@ class Room:
                 if cell == '.':
                     continue
 
-                self.seats[(i, j)] = cell == '#'
+                self.seats[i, j] = cell == '#'
 
     def _cell_to_str(self, i: int, j: int) -> str:
         status = self.seats.get((i, j))
@@ -30,8 +30,7 @@ class Room:
 
         if status:
             return '#'
-        else:
-            return 'L'
+        return 'L'
 
     def __str__(self) -> str:
         return '\n'.join(
@@ -44,7 +43,8 @@ class Room:
 
     def rule1(self, i: int, j: int) -> bool:
         if (i, j) not in self.seats:
-            raise AttributeError('Not a seat')
+            msg = 'Not a seat'
+            raise AttributeError(msg)
 
         directions = (
             (-1, -1),
@@ -66,11 +66,12 @@ class Room:
         if occupied >= 4:
             return False
 
-        return self.seats[(i, j)]
+        return self.seats[i, j]
 
     def rule2(self, i: int, j: int) -> bool:
         if (i, j) not in self.seats:
-            raise AttributeError('Not a seat')
+            msg = 'Not a seat'
+            raise AttributeError(msg)
 
         directions = (
             (-1, -1),
@@ -86,7 +87,6 @@ class Room:
         occupied = 0
 
         for i_, j_ in directions:
-
             step = 1
 
             while (
@@ -108,19 +108,17 @@ class Room:
         if occupied >= 5:
             return False
 
-        return self.seats[(i, j)]
+        return self.seats[i, j]
 
     def run_once(self, rule) -> None:
-
         new_seats = {}
         for i, j in self.seats:
-            new_seats[(i, j)] = rule(i, j)
+            new_seats[i, j] = rule(i, j)
 
         self.seats = new_seats
 
 
 def part1(room: Room) -> int:
-
     seen = set()
     steps = 0
 
@@ -135,7 +133,6 @@ def part1(room: Room) -> int:
 
 
 def part2(room: Room) -> int:
-
     seen = set()
     steps = 0
 

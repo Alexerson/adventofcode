@@ -1,4 +1,5 @@
 import collections
+import operator
 
 from utils import data_import
 
@@ -6,13 +7,12 @@ from utils import data_import
 def convert(data):
     particules = []
     for p, v, a in data:
-
         p = p[3:-1].split(',')
         v = v[3:-1].split(',')
         a = a[3:-1].split(',')
 
         particules.append(
-            ([int(v) for v in p], [int(v) for v in v], [int(v) for v in a])
+            ([int(v) for v in p], [int(v) for v in v], [int(v) for v in a]),
         )
     return particules
 
@@ -29,18 +29,16 @@ def move_particule(particule):
 def part1(data, loops=100000000):
     particules = convert(data)
 
-    velocities = []
-
-    for particule in particules:
-        velocities.append(
-            abs(particule[2][0] * loops + particule[1][0])
-            + abs(particule[2][1] * loops + particule[1][1])
-            + abs(particule[2][2] * loops + particule[1][2])
-        )
+    velocities = [
+        abs(particule[2][0] * loops + particule[1][0])
+        + abs(particule[2][1] * loops + particule[1][1])
+        + abs(particule[2][2] * loops + particule[1][2])
+        for particule in particules
+    ]
 
     return min(
         ((index, value) for index, value in enumerate(velocities)),
-        key=lambda a: a[1],
+        key=operator.itemgetter(1),
     )[0]
 
 
@@ -58,12 +56,9 @@ def part2(data, loops=1000):
             tuple(particule[0]) for particule in particules
         )
 
-        collisions = set(
+        collisions = {
             position for position, count in counter.items() if count > 1
-        )
-        to_remove = sum(
-            count for position, count in counter.items() if count > 1
-        )
+        }
 
         if collisions:
             particules = [

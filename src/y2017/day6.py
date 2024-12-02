@@ -2,7 +2,6 @@ from utils import data_import
 
 
 def parts(data_):
-
     total = sum(data_)
 
     data = data_.copy()
@@ -36,7 +35,8 @@ def parts(data_):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day6', int, True)[0]
+    data = data_import('data/y2017/day6', int, '\t', rstrip=True)[0]
+    print(data)
     part1, part2 = parts(data)
     print('Solution of 1 is', part1)
     print('Solution of 2 is', part2)

@@ -2,7 +2,6 @@ from utils import data_import
 
 
 def part1(data):
-
     new_data = data.copy()
 
     current_position = 0
@@ -39,6 +38,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day5', int)
+    data = data_import('data/y2017/day5', int)
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

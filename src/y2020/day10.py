@@ -4,12 +4,11 @@ from adventofcode.utils import data_import
 
 
 def part1(data: List[int]) -> int:
-
     jumps: Dict[int, int] = {}
     current_joltage = 0
     target_joltage = max(data) + 3
 
-    for device_joltage in sorted(data) + [target_joltage]:
+    for device_joltage in [*sorted(data), target_joltage]:
         jump = device_joltage - current_joltage
         if jump < 4:
             jumps[jump] = jumps.get(jump, 0) + 1
@@ -19,13 +18,12 @@ def part1(data: List[int]) -> int:
 
 
 def part2(data: List[int]) -> int:
-
     target_joltage = max(data) + 3
 
-    paths = {joltage: 0 for joltage in sorted(data + [0, target_joltage])}
+    paths = dict.fromkeys(sorted([*data, 0, target_joltage]), 0)
     paths[0] = 1
 
-    for joltage in sorted(data) + [target_joltage]:
+    for joltage in [*sorted(data), target_joltage]:
         for surge in (1, 2, 3):
             if joltage - surge in paths:
                 paths[joltage] += paths.get(joltage - surge, 0)

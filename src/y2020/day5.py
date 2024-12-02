@@ -1,5 +1,3 @@
-import itertools
-import math
 from typing import List
 
 from adventofcode.utils import data_import
@@ -24,7 +22,7 @@ def part2(data: List[str]) -> int:
     min_seat = min(seat_ids)
     max_seat = max(seat_ids)
 
-    return list(set(range(min_seat, max_seat)) - set(seat_ids))[0]
+    return next(iter(set(range(min_seat, max_seat)) - set(seat_ids)))
 
 
 if __name__ == '__main__':

@@ -10,4 +10,66 @@ readme = "README.md"
 requires-python = ">=3.8"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = { "" = "src" }
+
+[dependency-groups]
+dev = ["pre-commit>=3.5.0", "ruff>=0.8.1"]
+
+
+[tool.ruff]
+line-length = 79
+exclude = [
+    ".git",
+    "__pycache__",
+    "*/static/CACHE/*",
+    "media",
+    "venv",
+    "ampli/*",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+preview = true
+ignore = [
+    "T201",
+    "ERA001",
+    "D",
+    "FA",
+    "DOC",
+    "COM812",
+    "CPY001",
+    "ISC",
+    "Q001",
+    "PLR",
+    "A001",
+    "C901",
+    "ANN",
+    "FBT",
+    "SLF001",
+    "TRY",
+    "PLC",
+    "PERF",
+    "PTH123",
+    "PLW",
+    "ARG",
+    "N806",
+    "N803",
+    "DTZ007",
+    "S",
+]
+allowed-confusables = ["’", " "]
+
+[tool.ruff.format]
+quote-style = "single"
+preview = true
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "single"
+
+[tool.ruff.lint.flake8-annotations]
+ignore-fully-untyped = true
+
+[tool.ruff.lint.flake8-builtins]
+builtins-ignorelist = ["list", "filter"]
+builtins-allowed-modules = ["email", "statistics", "logging", "keyword"]

@@ -15,7 +15,6 @@ def part1(data, delay=0, penality=0):
         firewall_positions[bucket] %= size
 
     for position in range(time + 1):
-
         if firewall_positions.get(position) == 0:
             score += penality + position * (buckets_size[position])
 
@@ -40,7 +39,7 @@ def part2(data):
     while True:
         total = sum(
             (firewall_positions[bucket] + delay) % buckets[bucket] != 0
-            for bucket in buckets.keys()
+            for bucket in buckets
         )
 
         if total == buckets_count:
@@ -49,10 +48,10 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day13_example', int, ':')
+    data = data_import('data/y2017/day13_example', int, ':')
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))
 
-    data = data_import('2017/data/day13', int, ':')
+    data = data_import('data/y2017/day13', int, ':')
     print('Solution of 1 is', part1(data))
     print('Solution of 2 is', part2(data))

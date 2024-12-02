@@ -9,11 +9,10 @@ def distance(a, b):
 
 
 def part1(data):
-
     # We don't need to test anything, just start with min and max
-    min_x = min(list(zip(*data))[0])
+    min_x = min(next(zip(*data)))
     min_y = min(list(zip(*data))[1])
-    max_x = max(list(zip(*data))[0])
+    max_x = max(next(zip(*data)))
     max_y = max(list(zip(*data))[1])
 
     repartition = {}
@@ -21,34 +20,27 @@ def part1(data):
     # Bruteforce: we check for each point which is closer
     for i in range(min_x, max_x + 1):
         for j in range(min_y, max_y + 1):
-
             minimum = None
             index_min = None
 
             for index, point in enumerate(data):
                 dist = distance((i, j), point)
-                if minimum is None:
+                if minimum is None or dist < minimum:
                     minimum = dist
                     index_min = index
+                elif dist == minimum:
+                    index_min = '.'
 
-                else:
-
-                    if dist < minimum:
-                        minimum = dist
-                        index_min = index
-                    elif dist == minimum:
-                        index_min = '.'
-
-            repartition[(i, j)] = index_min
+            repartition[i, j] = index_min
 
     # We exclude edges, those are infinite boundaries
-    exclusions = set(['.'])
+    exclusions = {'.'}
     for i in range(min_x, max_x):
-        exclusions.add(repartition[(i, min_y)])
-        exclusions.add(repartition[(i, max_y)])
+        exclusions.add(repartition[i, min_y])
+        exclusions.add(repartition[i, max_y])
     for j in range(min_y, max_y):
-        exclusions.add(repartition[(min_x, j)])
-        exclusions.add(repartition[(max_x, j)])
+        exclusions.add(repartition[min_x, j])
+        exclusions.add(repartition[max_x, j])
 
     # We count
     counter = collections.Counter(
@@ -60,9 +52,9 @@ def part1(data):
 
 def part2(data, limit=10000):
     # We don't need to test anything, just start with min and max
-    min_x = min(list(zip(*data))[0])
+    min_x = min(next(zip(*data)))
     min_y = min(list(zip(*data))[1])
-    max_x = max(list(zip(*data))[0])
+    max_x = max(next(zip(*data)))
     max_y = max(list(zip(*data))[1])
 
     distances = {}
@@ -70,8 +62,7 @@ def part2(data, limit=10000):
     # Bruteforce: we check for each point which is closer
     for i in range(min_x, max_x + 1):
         for j in range(min_y, max_y + 1):
-
-            distances[(i, j)] = sum(distance((i, j), point) for point in data)
+            distances[i, j] = sum(distance((i, j), point) for point in data)
 
     return sum(dist < limit for dist in distances.values())
 

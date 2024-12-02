@@ -21,7 +21,7 @@ def build_tree(data):
 
 
 def get_root(parents):
-    leaf = list(parents.keys())[0]
+    leaf = next(iter(parents.keys()))
 
     while True:
         try:
@@ -31,7 +31,7 @@ def get_root(parents):
 
 
 def part1(data):
-    towers, parents = build_tree(data)
+    _towers, parents = build_tree(data)
     return get_root(parents)
 
 
@@ -47,7 +47,6 @@ def weight(key, towers):
 
 
 def get_unbalanced(node, towers):
-
     leafs = towers[node]['leafs']
     if not leafs:
         return None
@@ -59,7 +58,7 @@ def get_unbalanced(node, towers):
         return None
 
     normal = counts.most_common()[0][0]
-    outliar = [(leaf, wei) for leaf, wei in weights if wei != normal][0]
+    outliar = next((leaf, wei) for leaf, wei in weights if wei != normal)
 
     if towers[outliar[0]]['leafs']:
         unbalanced = get_unbalanced(outliar[0], towers)
@@ -71,7 +70,6 @@ def get_unbalanced(node, towers):
 
 
 def part2(data):
-
     towers, parents = build_tree(data)
     root = get_root(parents)
 
@@ -79,7 +77,7 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('2017/data/day7_real', str, True)
+    data = data_import('data/y2017/day7_real', str, True)
 
     print('Solution of 1 is', part1(data))
 
@@ -92,7 +90,7 @@ if __name__ == '__main__':
     print(
         'Solution of 2 is:',
         correct_weight,
-        '(instead of {}: total weight of this node is {} when it should be {})'.format(
-            outliar_node['weight'], outliar_node['total_weight'], normal
-        ),
+        f'(instead of {outliar_node["weight"]}: '
+        f'total weight of this node is {outliar_node["total_weight"]} '
+        f'when it should be {normal})',
     )

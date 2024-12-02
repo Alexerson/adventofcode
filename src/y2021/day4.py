@@ -1,3 +1,4 @@
+import contextlib
 from copy import copy
 
 from utils import data_import
@@ -21,10 +22,8 @@ class Board:
             return
 
         for set_ in self._sets:
-            try:
+            with contextlib.suppress(KeyError):
                 set_.remove(value)
-            except KeyError:
-                pass
 
     def is_winner(self):
         return any(len(set_) == 0 for set_ in self._sets)
@@ -58,13 +57,13 @@ def part1(drawn_numbers: list[int], boards: list[Board]) -> list[int]:
 
         if winners:
             return [number * sum(board._unmarked) for board in winners]
+    return None
 
 
 def part2(drawn_numbers: list[int], boards: list[Board]) -> list[int]:
     left = copy(boards)
 
     for number in drawn_numbers:
-
         for board in left:
             board.mark(number)
 
@@ -74,6 +73,7 @@ def part2(drawn_numbers: list[int], boards: list[Board]) -> list[int]:
             return [number * sum(board._unmarked) for board in left]
 
         left = losers
+    return None
 
 
 if __name__ == '__main__':

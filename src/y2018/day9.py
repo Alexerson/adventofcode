@@ -1,10 +1,7 @@
 from collections import deque
 
-from utils import data_import
-
 
 def add_marble(number, circle):
-
     if number % 23 == 0:
         circle.rotate(7)
         score = number + circle.pop()

@@ -14,7 +14,7 @@ def build_path(data):
 
         diff = directions[direction]
 
-        for i in range(distance):
+        for _i in range(distance):
             if tuple(current) not in path:
                 path[tuple(current)] = steps
             current[0] += diff[0]

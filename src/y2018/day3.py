@@ -7,7 +7,7 @@ from utils import data_import
 def convert_data(data):
     out = []
     for item in data:
-        pk, _, position, size = item.split(" ")
+        pk, _, position, size = item.split(' ')
         pk = pk[1:]
         x, y = position[:-1].split(',')
         w, h = size.split('x')
@@ -41,8 +41,9 @@ def part2(data):
     overlap_items = squares_usage_count(data)
 
     for id, x, y, w, h in data:
-        if all(overlap_items[(i, j)] == 1 for i, j in claim_pairs(x, y, w, h)):
+        if all(overlap_items[i, j] == 1 for i, j in claim_pairs(x, y, w, h)):
             return id
+    return None
 
 
 if __name__ == '__main__':
