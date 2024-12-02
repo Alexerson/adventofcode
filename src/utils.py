@@ -1,25 +1,33 @@
 from pathlib import Path
-from typing import Any, overload
+from typing import Callable, TypeVar, overload
+
+T = TypeVar('T')
 
 
 @overload
 def data_import(
-    filename: str, cast=..., split_char: str = ..., rstrip: bool = ...
-) -> list[list]: ...
+    filename: str,
+    cast: Callable[[str], T] = ...,
+    split_char: str = ...,
+    rstrip: bool = ...,
+) -> list[list[T]]: ...
 
 
 @overload
 def data_import(
-    filename: str, cast=..., split_char: None = ..., rstrip: bool = ...
-) -> list: ...
+    filename: str,
+    cast: Callable[[str], T] = ...,
+    split_char: None = ...,
+    rstrip: bool = ...,
+) -> list[T]: ...
 
 
 def data_import(
     filename: str,
-    cast=str,
+    cast: Callable[[str], T] = str,
     split_char: str | None = None,
     rstrip: bool = False,
-) -> list[Any] | list[list[Any]]:
+) -> list[T] | list[list[T]]:
     path = Path(filename)
     data = []
     with path.open(encoding='utf-8') as file:

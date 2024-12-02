@@ -41,5 +41,7 @@ def part2(data: list[list[int]]) -> int:
 
 if __name__ == '__main__':
     mydata = data_import('data/y2024/day2', int, split_char=' ')
+    a = mydata[0]
+    b = a[0]
     print('Solution of 1 is', part1(mydata))
     print('Solution of 2 is', part2(mydata))

@@ -8,9 +8,7 @@ version = "0.1.0"
 description = "Advent of Code solutions"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = [
-    "parse>=1.20.2",
-]
+dependencies = ["parse>=1.20.2"]
 
 [tool.setuptools]
 package-dir = { "" = "src" }
@@ -79,3 +77,41 @@ ignore-fully-untyped = true
 [tool.ruff.lint.flake8-builtins]
 builtins-ignorelist = ["list", "filter"]
 builtins-allowed-modules = ["email", "statistics", "logging", "keyword"]
+
+[tool.mypy]
+warn_unused_configs = true
+no_implicit_reexport = true
+disallow_subclassing_any = true
+
+# Disallow dynamic typing
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+
+# Require explicit types
+no_implicit_optional = true
+strict_optional = true
+warn_return_any = true
+
+# Disallow unused "type: ignore" comments
+warn_unused_ignores = true
+
+# Require type hints for variables
+disallow_any_generics = true
+disallow_any_explicit = true
+disallow_any_expr = true
+
+# Enforce strict equality checks
+strict_equality = true
+
+# Enable warnings for unreachable code and redundant casts
+warn_unreachable = true
+warn_redundant_casts = true
+
+# Miscellaneous settings
+check_untyped_defs = true
+implicit_reexport = false
+show_error_codes = true
+
+exclude = [".venv"]
