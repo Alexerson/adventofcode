@@ -13,17 +13,17 @@ def convert_image(image):
     return plan, origin
 
 
-def get_accessible_keys(plan, current_position, keys):
+def get_accessible_keys(plan, current_position, keys):  # noqa: ARG001
     return []
 
 
-def get_possible_permutations(plan, current_position, done_keys=None):
+def get_possible_permutations(plan, current_position, done_keys=None):  # noqa: ARG001
     return {
         pixel: (col_no, line_no) for (col_no, line_no), pixel in plan.items()
     }
 
 
-def get_total_distance(plan, origin, permutation):
+def get_total_distance(plan, origin, permutation):  # noqa: ARG001
     return 0
 
 

@@ -39,7 +39,7 @@ def part1(data):
     return min(abs(a) + abs(b) for a, b in intersections)
 
 
-def part2(data, output):
+def part2(data):
     # We build the paths
     path1 = build_path(data[0])
     path2 = build_path(data[1])

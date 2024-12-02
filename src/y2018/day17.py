@@ -158,11 +158,11 @@ def run_simulation(data, debug=False):
     return clay, water
 
 
-def part1(clay, water):
+def part1(_clay, water):
     return len(water)
 
 
-def part2(clay, water):
+def part2(_clay, water):
     return sum(w == STILL for w in water.values())
 
 

@@ -51,7 +51,6 @@ ignore = [
     "PERF",
     "PTH123",
     "PLW",
-    "ARG",
     "N806",
     "N803",
     "DTZ007",
