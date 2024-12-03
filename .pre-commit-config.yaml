@@ -27,7 +27,7 @@ repos:
       - id: mypy
         name: mypy
         entry: "uv run --frozen mypy"
-        files: src/y2024/.*\.py$
+        files: src/y20(24)|(15)/.*\.py$
         language: python
         types: [python]
         require_serial: true
