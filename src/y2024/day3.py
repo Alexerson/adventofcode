@@ -4,9 +4,9 @@ from src.utils import data_import
 
 
 def part1(data: str) -> int:
-    regexp = r'mul\((\d+),(\d+)\)'
+    regexp = re.compile(r'mul\((\d+),(\d+)\)')
 
-    return sum(int(a) * int(b) for a, b in re.findall(regexp, data))  # type: ignore[misc]
+    return sum(int(a) * int(b) for a, b in regexp.findall(data))  # type: ignore[misc]
 
 
 def part2(data: str) -> int:
@@ -18,12 +18,11 @@ def part2(data: str) -> int:
 
 
 if __name__ == '__main__':
-    mydata = data_import('data/y2024/day3-example', str, None)[0]
+    mydata = data_import('data/y2024/day3-example')[0]
     print('Solution of 1 is', part1(mydata))
     print('Solution of 2 is', part2(mydata))
 
     # The real data has multiple lines, so we need to join them
-    # Using \n to join breaks the regexps…
-    mydata = ' '.join(data_import('data/y2024/day3', str, None))
+    mydata = ' '.join(data_import('data/y2024/day3'))
     print('Solution of 1 is', part1(mydata))
     print('Solution of 2 is', part2(mydata))
