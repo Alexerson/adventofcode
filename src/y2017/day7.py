@@ -74,7 +74,7 @@ def part2(data):
 
 
 if __name__ == '__main__':
-    data = data_import('data/y2017/day7_real', str, True)
+    data = data_import('data/y2017/day7_real', cast=str, split_char=' ')
 
     print('Solution of 1 is', part1(data))
 
