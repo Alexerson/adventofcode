@@ -1,6 +1,6 @@
 import itertools
 
-from src.utils import data_import
+from src.utils import assert_result, data_import
 
 
 def map_to_frequencies_dict(
@@ -64,9 +64,8 @@ def part2(data: list[str]) -> int:
 
 if __name__ == '__main__':
     mydata = data_import('data/y2024/day8-example')
-    result = part1(mydata)
-    assert (result := part1(mydata)) == 14, f'Found {result}'  # noqa: RUF018
-    assert (result := part2(mydata)) == 34, f'Found {result}'  # noqa: RUF018
+    assert_result(part1(mydata), 14)
+    assert_result(part2(mydata), 34)
 
     mydata = data_import('data/y2024/day8')
     print('Solution of 1 is', part1(mydata))  # 27 min

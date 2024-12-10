@@ -1,4 +1,4 @@
-from src.utils import data_import
+from src.utils import assert_result, data_import
 
 
 def part1(data: str) -> int:
@@ -90,9 +90,9 @@ def part2(data: str) -> int:
 
 if __name__ == '__main__':
     mydata = data_import('data/y2024/day9-example')[0]
-    result = part1(mydata)
-    assert (result := part1(mydata)) == 1928, f'Found {result}'  # noqa: RUF018
-    assert (result := part2(mydata)) == 2858, f'Found {result}'  # noqa: RUF018
+
+    assert_result(part1(mydata), 1928)
+    assert_result(part2(mydata), 2858)
 
     mydata = data_import('data/y2024/day9')[0]
     print('Solution of 1 is', part1(mydata))  # 20 min

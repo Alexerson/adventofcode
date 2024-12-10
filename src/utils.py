@@ -62,3 +62,11 @@ def data_import(
                     )
 
     return data
+
+
+def assert_result(result: T, expected: T) -> None:
+    if result != expected:
+        msg = f'Expected {expected}, got {result}'
+        raise AssertionError(msg)
+
+    return
